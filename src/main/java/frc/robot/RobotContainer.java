@@ -40,7 +40,7 @@ public class RobotContainer {
     private final Swerve m_SwerveSubsystem = new Swerve();
 
     /* Trajectories */
-    Trajectory testPath = new Trajectory();
+    Trajectory testPath;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
