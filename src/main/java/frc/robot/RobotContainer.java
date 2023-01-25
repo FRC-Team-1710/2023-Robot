@@ -85,6 +85,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(m_SwerveSubsystem, testPath);
+        //return new exampleAuto(m_SwerveSubsystem, testPath);
+        return new PPauto(m_SwerveSubsystem);
     }
 }
