@@ -13,6 +13,13 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     public static final double stickDeadband = 0.05;
 
+    //Pneumatics Constants
+    public static final int pcmPort = 1;
+    public static final int kPneuForwardPort = 2;
+    public static final int kPneuReversePort = 5;
+    public static final int kPneu2ForwardPort = 0;
+    public static final int kPneu2ReversePort = 7;
+
     public static final class Swerve {
         public static final int pigeonID = 13;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
