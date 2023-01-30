@@ -35,9 +35,12 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(controller, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton toggleClaw = new JoystickButton(controller, XboxController.Button.kA.value);
 
     /* Subsystems */
     private final Swerve m_SwerveSubsystem = new Swerve();
+    private final PneumaticSubsystem m_PneumaticSubsystem = new PneumaticSubsystem();
+    private final LedSubsystem m_LedSubsystem = new LedSubsystem();
 
     /* Trajectories */
     Trajectory testPath = new Trajectory();
@@ -63,6 +66,8 @@ public class RobotContainer {
             DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
          }
 
+         m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
+
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -76,6 +81,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
+        toggleClaw.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleOneSolenoid()));
     }
 
     /**

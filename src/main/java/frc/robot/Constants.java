@@ -15,8 +15,8 @@ public final class Constants {
 
     //Pneumatics Constants
     public static final int pcmPort = 1;
-    public static final int kPneuForwardPort = 2;
-    public static final int kPneuReversePort = 5;
+    public static final int kPneuForwardPort = 3;
+    public static final int kPneuReversePort = 1;
     public static final int kPneu2ForwardPort = 0;
     public static final int kPneu2ReversePort = 7;
 

@@ -6,23 +6,23 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsControlModule;
+//import edu.wpi.first.wpilibj.PneumaticsControlModule;
 //import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import frc.robot.Constants;
 //import static edu.wpi.first.wpilibj.PneumaticsModuleType.CTREPCM;
 
-public class PneuSubsystem extends SubsystemBase {
+public class PneumaticSubsystem extends SubsystemBase {
 
   /** Creates a new PneuSubsystem. */
-  public PneumaticsControlModule e = new PneumaticsControlModule();
+  //public PneumaticsControlModule e = new PneumaticsControlModule();
   public DoubleSolenoid deezSolenoid = new DoubleSolenoid(Constants.pcmPort, PneumaticsModuleType.CTREPCM, Constants.kPneuForwardPort, Constants.kPneuReversePort);
   public DoubleSolenoid nutsSolenoid = new DoubleSolenoid(Constants.pcmPort, PneumaticsModuleType.CTREPCM, Constants.kPneu2ForwardPort, Constants.kPneu2ReversePort);
 
   boolean bothPneuForward;
 
-  public PneuSubsystem() {
+  public PneumaticSubsystem() {
 
     // Sets all solenoids to the same position
     deezSolenoid.set(kReverse);
@@ -37,19 +37,19 @@ public class PneuSubsystem extends SubsystemBase {
   }
 
   
-  public void SetPneuReverse() {
+  public void SetOneSolenoidReverse() {
 
     deezSolenoid.set(kReverse);
 
   }
 
-  public void SetPneuForward() {
+  public void SetOneSolenoidForward() {
 
     deezSolenoid.set(kForward);
 
   }
 
-  public void SetBothPneuForward(){
+  public void SetTwoSolenoidsForward(){
 
     deezSolenoid.set(kForward);
     nutsSolenoid.set(kForward);
@@ -57,7 +57,7 @@ public class PneuSubsystem extends SubsystemBase {
 
   }
 
-  public void SetBothPneuReverse(){
+  public void SetTwoSolenoidsReverse(){
     
     deezSolenoid.set(kReverse);
     nutsSolenoid.set(kReverse);
@@ -65,20 +65,14 @@ public class PneuSubsystem extends SubsystemBase {
 
   }
 
-  public void ToggleBothPneu() {
+  public void ToggleOneSolenoid(){
+    deezSolenoid.toggle();
+  }
+
+  public void ToggleTwoSolenoids() {
 
     deezSolenoid.toggle();
     nutsSolenoid.toggle();
-
-  }
-
-  public void ToggleBothPneuAlt() {
-
-    if (bothPneuForward){
-      SetBothPneuReverse();
-    } else {
-      SetBothPneuForward();
-    }
 
   }
 

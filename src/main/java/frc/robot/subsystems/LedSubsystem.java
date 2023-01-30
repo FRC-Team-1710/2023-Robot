@@ -17,29 +17,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LedSubsystem extends SubsystemBase {
 
   public DigitalOutput allianceColorOutput = new DigitalOutput(0);
-  public DigitalOutput conusCubumOutput = new DigitalOutput(1);
-  public DigitalOutput hasOrWantsOutput = new DigitalOutput(2);
+  public DigitalOutput coneOrCubeColorOutput = new DigitalOutput(1);
+  public DigitalOutput blinkOutput = new DigitalOutput(2);
   public DigitalOutput miscOutput = new DigitalOutput(3);
   public ShuffleboardTab tab = Shuffleboard.getTab("Leds");
   public boolean redAlliance;
-  public boolean cubum = false;
-  public boolean has = false;
+  public boolean isPurple = false;
+  public boolean isSolid = false;
   
   /** Creates a new LedSubsystem. */
   public LedSubsystem() {
-    
 
-    
-    
-    
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
-    SmartDashboard.putBoolean("Cubus", cubum);
-    SmartDashboard.putBoolean("Has", has);
+    SmartDashboard.putBoolean("isPurple", isPurple);
+    SmartDashboard.putBoolean("isSolid", isSolid);
 
   }
 
@@ -52,22 +48,22 @@ public class LedSubsystem extends SubsystemBase {
     allianceColorOutput.set(redAlliance);
   }
 
-  public void SetConumCubus(boolean cubum){
-    conusCubumOutput.set(cubum);
-    this.cubum = cubum;
+  public void SetConeOrCubeColor(boolean isPurple){
+    coneOrCubeColorOutput.set(isPurple);
+    this.isPurple = isPurple;
   }
 
-  public void SetWantsOrHas(boolean has){
-    hasOrWantsOutput.set(has);
-    this.has = has;
+  public void SetBlink(boolean isSolid){
+    blinkOutput.set(isSolid);
+    this.isSolid = isSolid;
   }
 
   public void ToggleConumCubus(){
-    SetConumCubus(!cubum);
+    SetConeOrCubeColor(!isPurple);
   }
 
   public void ToggleWantsOrHas(){
-    SetWantsOrHas(!has);
+    SetBlink(!isSolid);
   }
 
 
