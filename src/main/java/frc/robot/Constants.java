@@ -14,7 +14,7 @@ public final class Constants {
     public static final double stickDeadband = 0.05;
 
     //Pneumatics Constants
-    public static final int phPort = 1;
+    public static final int phPort = 7;
     public static final int pcmPort = 0;
     public static final int kPneuForwardPort = 3;
     public static final int kPneuReversePort = 1;
