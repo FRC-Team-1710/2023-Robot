@@ -25,7 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
   final double hkI = 0.01;
   final double hkD = 0;
 
-  final double ukP = .05;
+  final double ukP = 0.05;
   final double ukI = 0.01;
   final double ukD = 0;
 

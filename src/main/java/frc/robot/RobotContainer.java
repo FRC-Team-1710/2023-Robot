@@ -35,7 +35,6 @@ public class RobotContainer {
     /* Controller Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(controller, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
-<<<<<<< HEAD
     private final JoystickButton startButton = new JoystickButton(controller, XboxController.Button.kStart.value);
     private final JoystickButton aButton = new JoystickButton(controller, XboxController.Button.kA.value);
     private final JoystickButton bButton = new JoystickButton(controller, XboxController.Button.kB.value);
@@ -43,14 +42,11 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve m_SwerveSubsystem = new Swerve();
     private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
-=======
     private final JoystickButton toggleClaw = new JoystickButton(controller, XboxController.Button.kA.value);
 
-    /* Subsystems */
-    private final Swerve m_SwerveSubsystem = new Swerve();
+   
     private final PneumaticSubsystem m_PneumaticSubsystem = new PneumaticSubsystem();
     private final LedSubsystem m_LedSubsystem = new LedSubsystem();
->>>>>>> origin/MicahBranch
 
     /* Trajectories */
     Trajectory testPath = new Trajectory();
@@ -91,15 +87,12 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-<<<<<<< HEAD
 
         startButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.zeroArm()));
         aButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.setAngles(0, 0)));
         bButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.setAngles(0, 0)));
 
-=======
         toggleClaw.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleOneSolenoid()));
->>>>>>> origin/MicahBranch
     }
 
     /**
