@@ -33,11 +33,11 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Controller Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(controller, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
     private final JoystickButton startButton = new JoystickButton(controller, XboxController.Button.kStart.value);
     private final JoystickButton aButton = new JoystickButton(controller, XboxController.Button.kA.value);
     private final JoystickButton bButton = new JoystickButton(controller, XboxController.Button.kB.value);
+    private final JoystickButton leftBumper = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
     private final Swerve m_SwerveSubsystem = new Swerve();
@@ -49,7 +49,7 @@ public class RobotContainer {
     private final LedSubsystem m_LedSubsystem = new LedSubsystem();
 
     /* Trajectories */
-    Trajectory testPath = new Trajectory();
+    Trajectory testPath;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -59,7 +59,7 @@ public class RobotContainer {
                 () -> controller.getRawAxis(translationAxis)*.75, 
                 () -> controller.getRawAxis(strafeAxis) * .75, 
                 () -> controller.getRawAxis(rotationAxis) *.75, 
-                () -> robotCentric.getAsBoolean()
+                () -> leftBumper.getAsBoolean()
             )
         );
 
@@ -86,13 +86,11 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-
         startButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.zeroArm()));
         aButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.setAngles(0, 0)));
         bButton.onTrue(new InstantCommand(() -> m_ArmSubsystem.setAngles(0, 0)));
-
         toggleClaw.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleOneSolenoid()));
+        startButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
     }
 
     /**
@@ -102,6 +100,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(m_SwerveSubsystem, testPath);
+        //return new exampleAuto(m_SwerveSubsystem, testPath);
+        return new PPauto(m_SwerveSubsystem);
     }
 }
