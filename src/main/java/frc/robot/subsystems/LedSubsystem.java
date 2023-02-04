@@ -58,11 +58,11 @@ public class LedSubsystem extends SubsystemBase {
     this.isSolid = isSolid;
   }
 
-  public void ToggleConumCubus(){
+  public void ToggleConeOrCubeColor(){
     SetConeOrCubeColor(!isPurple);
   }
 
-  public void ToggleWantsOrHas(){
+  public void ToggleBlink(){
     SetBlink(!isSolid);
   }
 
