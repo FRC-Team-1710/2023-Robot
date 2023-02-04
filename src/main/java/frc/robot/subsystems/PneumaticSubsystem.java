@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 //import edu.wpi.first.wpilibj.PneumaticsControlModule;
 //import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.simulation.DoubleSolenoidSim;
+
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import frc.robot.Constants;
 //import static edu.wpi.first.wpilibj.PneumaticsModuleType.CTREPCM;
@@ -18,7 +20,7 @@ public class PneumaticSubsystem extends SubsystemBase {
   /** Creates a new PneuSubsystem. */
   //public PneumaticsControlModule e = new PneumaticsControlModule();
   public DoubleSolenoid deezSolenoid = new DoubleSolenoid(Constants.pcmPort, PneumaticsModuleType.CTREPCM, Constants.kPneuForwardPort, Constants.kPneuReversePort);
-  public DoubleSolenoid nutsSolenoid = new DoubleSolenoid(Constants.pcmPort, PneumaticsModuleType.CTREPCM, Constants.kPneu2ForwardPort, Constants.kPneu2ReversePort);
+  public DoubleSolenoid nutsSolenoid = new DoubleSolenoid(Constants.phPort, PneumaticsModuleType.CTREPCM, Constants.kPneu2ForwardPort, Constants.kPneu2ReversePort);
 
   boolean bothPneuForward;
 
@@ -32,7 +34,71 @@ public class PneumaticSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void periodic() \
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
     // This method will be called once per scheduler run
   }
 
