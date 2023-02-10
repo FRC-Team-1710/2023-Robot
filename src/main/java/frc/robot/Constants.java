@@ -13,13 +13,26 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     public static final double stickDeadband = 0.01;
 
-    //Pneumatics Constants
-    public static final int pcmPort = 7;
+    /*PNEUMATICS CONSTANTS*/
+    public static final int phPort = 7;
     public static final int kPneuForwardPort = 8;
     public static final int kPneuReversePort = 9;
     public static final int kPneu2ForwardPort = 0;
     public static final int kPneu2ReversePort = 7;
 
+    /*ARM CONSTANTS*/
+    public static final int humerusMotor1ID = 30;
+    public static final int humerusMotor2ID = 31;
+    public static final int humerusMotor3ID = 32;
+    public static final int humerusMotor4ID = 33;
+    public static final int ulnaMotor1ID = 34;
+    public static final int ulnaMotor2ID = 35;
+
+    public static final int humerusEncoderID = 1;
+    public static final int ulnaEncoderID = 0;
+
+    public static final double humerusLength = 26.5; //FIX
+    public static final double ulnaLength = 41; //FIX
     public static final class Swerve {
         public static final int pigeonID = 13;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
