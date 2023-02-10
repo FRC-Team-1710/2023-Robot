@@ -4,41 +4,38 @@
 
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
-  /** Creates a new ArmSubsystem. */
-  public static CANSparkMax hm1, hm2, hm3, hm4, um1, um2, um3, um4;
+  public static CANSparkMax hm1, hm2, hm3, hm4, um1, um2;
   public static DutyCycleEncoder humerus_encoder, ulna_encoder;
   public static PIDController hPID, uPID;
 
-  final double humerusLength = 26.5;
-  final double ulnaLength = 41;
-
-  final double hkP = 0.05;
-  final double hkI = 0.01;
+  final double hkP = 0.25;
+  final double hkI = 0.1;
   final double hkD = 0;
 
-  final double ukP = 0.05;
-  final double ukI = 0.01;
+  final double ukP = 0.25;
+  final double ukI = 0.1;
   final double ukD = 0;
 
   public ArmSubsystem() {
-    hm1 = new CANSparkMax(30, MotorType.kBrushless);
-    hm2 = new CANSparkMax(31, MotorType.kBrushless);
-    hm3 = new CANSparkMax(32, MotorType.kBrushless);
-    hm4 = new CANSparkMax(33, MotorType.kBrushless);
-    um1 = new CANSparkMax(34, MotorType.kBrushless);
-    um2 = new CANSparkMax(35, MotorType.kBrushless);
+    hm1 = new CANSparkMax(Constants.humerusMotor1ID, MotorType.kBrushless);
+    hm2 = new CANSparkMax(Constants.humerusMotor2ID, MotorType.kBrushless);
+    hm3 = new CANSparkMax(Constants.humerusMotor3ID, MotorType.kBrushless);
+    hm4 = new CANSparkMax(Constants.humerusMotor4ID, MotorType.kBrushless);
+    um1 = new CANSparkMax(Constants.ulnaMotor1ID, MotorType.kBrushless);
+    um2 = new CANSparkMax(Constants.ulnaMotor2ID, MotorType.kBrushless);
 
-    humerus_encoder = new DutyCycleEncoder(9);
-    ulna_encoder = new DutyCycleEncoder(8);
+    humerus_encoder = new DutyCycleEncoder(Constants.humerusEncoderID);
+    ulna_encoder = new DutyCycleEncoder(Constants.ulnaEncoderID);
 
     hPID = new PIDController(hkP, hkI, hkD);
     uPID = new PIDController(ukP, ukI, ukD);
@@ -50,6 +47,13 @@ public class ArmSubsystem extends SubsystemBase {
     um1.restoreFactoryDefaults();
     um2.restoreFactoryDefaults();
 
+    hm1.setIdleMode(IdleMode.kBrake);
+    hm2.setIdleMode(IdleMode.kBrake);
+    hm3.setIdleMode(IdleMode.kBrake);
+    hm4.setIdleMode(IdleMode.kBrake);
+    um1.setIdleMode(IdleMode.kBrake);
+    um2.setIdleMode(IdleMode.kBrake);
+
     hm2.follow(hm1, false);
     hm3.follow(hm1, true);
     hm4.follow(hm1, true);
@@ -58,15 +62,15 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("hangle", getHPos());
     SmartDashboard.putNumber("uangle", getUPos());
+    SmartDashboard.putNumber("hum speed", hm1.get());
+    SmartDashboard.putNumber("uln speed", um1.get());
   }
 
-
   public void setAngles(double hangle, double uangle) {
-    hm1.set(hPID.calculate(humerus_encoder.get()*360, hangle)/10);
-    um1.set(uPID.calculate(ulna_encoder.get()*360, uangle)/5);
+    hm1.set(hPID.calculate(humerus_encoder.get()*360, hangle)/25);
+    um1.set(uPID.calculate(ulna_encoder.get()*360, uangle)/25);
   }
 
   public void zeroArm() {
@@ -75,10 +79,10 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public double getHPos() {
-    return ((humerus_encoder.get()*360) % 360);
+    return ((humerus_encoder.get()*360));
   }
 
   public double getUPos() {
-    return ((ulna_encoder.get()*360) % 360);
+    return ((ulna_encoder.get()*360));
   }
 }

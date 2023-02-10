@@ -17,8 +17,8 @@ public class PneumaticSubsystem extends SubsystemBase {
 
   /** Creates a new PneuSubsystem. */
   //public PneumaticsControlModule e = new PneumaticsControlModule();
-  public DoubleSolenoid deezSolenoid = new DoubleSolenoid(Constants.pcmPort, PneumaticsModuleType.REVPH, Constants.kPneuForwardPort, Constants.kPneuReversePort);
-  public DoubleSolenoid nutsSolenoid = new DoubleSolenoid(Constants.pcmPort, PneumaticsModuleType.REVPH, Constants.kPneu2ForwardPort, Constants.kPneu2ReversePort);
+  public DoubleSolenoid deezSolenoid = new DoubleSolenoid(Constants.phPort, PneumaticsModuleType.REVPH, Constants.kPneuForwardPort, Constants.kPneuReversePort);
+  public DoubleSolenoid nutsSolenoid = new DoubleSolenoid(Constants.phPort, PneumaticsModuleType.REVPH, Constants.kPneu2ForwardPort, Constants.kPneu2ReversePort);
 
   boolean bothPneuForward;
 
