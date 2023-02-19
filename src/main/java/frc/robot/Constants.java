@@ -11,7 +11,7 @@ import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.01;
+    public static final double stickDeadband = 0.05;
 
     /*PNEUMATICS CONSTANTS*/
     public static final int phPort = 7;
@@ -28,8 +28,8 @@ public final class Constants {
     public static final int ulnaMotor1ID = 34;
     public static final int ulnaMotor2ID = 35;
 
-    public static final int humerusEncoderID = 1;
-    public static final int ulnaEncoderID = 0;
+    public static final int humerusEncoderID = 0;
+    public static final int ulnaEncoderID = 1;
 
     public static final double humerusLength = 26.5; //FIX
     public static final double ulnaLength = 41; //FIX
@@ -114,7 +114,7 @@ public final class Constants {
             public static final int driveMotorID = 12;
             public static final int angleMotorID = 10;
             public static final int canCoderID = 11;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(335);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(337);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -124,7 +124,7 @@ public final class Constants {
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 1;
             public static final int canCoderID = 2;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(239);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(238);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }

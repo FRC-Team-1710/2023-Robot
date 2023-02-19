@@ -3,32 +3,33 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+
 import frc.robot.subsystems.ArmSubsystem;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ArmSetAngles extends CommandBase {
-  /** Creates a new ArmCommand. */
+public class manualArm extends CommandBase {
+  /** Creates a new manualArm. */
   private final ArmSubsystem m_subsystem;
-  private double hangle, uangle, HDF, UDF;
-  public ArmSetAngles(ArmSubsystem subsystem, double Hangle, double Uangle, double hdf, double udf) {
+  private double hspeed, uspeed;
+  public manualArm(ArmSubsystem subsystem, double Hspeed, double Uspeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_subsystem = subsystem;
     addRequirements(subsystem);
-   hangle = Hangle;
-   uangle = Uangle;
-   HDF = hdf;
-   UDF = udf;
+   hspeed = Hspeed;
+   uspeed = Uspeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.setAngles(hangle, uangle, HDF, UDF);
+    m_subsystem.manualMove(hspeed, uspeed);
   }
 
   // Called once the command ends or is interrupted.

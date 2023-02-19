@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class PPauto extends SequentialCommandGroup {
     public PPauto(Swerve m_SwerveSubsystem) {
 
-        PathPlannerTrajectory trajectory = PathPlanner.loadPath("straight", new PathConstraints(1.5, 1.5));
+        PathPlannerTrajectory trajectory = PathPlanner.loadPath("straight2", new PathConstraints(3, 3));
 
         PPSwerveControllerCommand swerveControllerCommand = new PPSwerveControllerCommand(
                 trajectory,
@@ -25,10 +25,11 @@ public class PPauto extends SequentialCommandGroup {
                 new PIDController(Constants.AutoConstants.kPYController, 0, 0),
                 new PIDController(0, 0, 0),
                 m_SwerveSubsystem::setModuleStates,
-                false,
+                true,
                 m_SwerveSubsystem);
 
         addCommands(
+            new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()),
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(trajectory.getInitialPose())),
                 swerveControllerCommand);
     }
