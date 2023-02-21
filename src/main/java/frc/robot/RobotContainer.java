@@ -43,8 +43,7 @@ public class RobotContainer {
     private final JoystickButton DxButton = new JoystickButton(Dcontroller, XboxController.Button.kX.value);
     private final JoystickButton DyButton = new JoystickButton(Dcontroller, XboxController.Button.kY.value);
     private final JoystickButton DleftBumper = new JoystickButton(Dcontroller, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton DrightBumper = new JoystickButton(Dcontroller,
-            XboxController.Button.kRightBumper.value);
+    private final JoystickButton DrightBumper = new JoystickButton(Dcontroller, XboxController.Button.kRightBumper.value);
     private final JoystickButton DrightStick = new JoystickButton(Dcontroller, XboxController.Button.kRightStick.value);
     private final JoystickButton DleftStick = new JoystickButton(Dcontroller, XboxController.Button.kLeftStick.value);
 
@@ -54,8 +53,7 @@ public class RobotContainer {
     private final JoystickButton MxButton = new JoystickButton(Mcontroller, XboxController.Button.kX.value);
     private final JoystickButton MyButton = new JoystickButton(Mcontroller, XboxController.Button.kY.value);
     private final JoystickButton MleftBumper = new JoystickButton(Mcontroller, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton MrightBumper = new JoystickButton(Mcontroller,
-            XboxController.Button.kRightBumper.value);
+    private final JoystickButton MrightBumper = new JoystickButton(Mcontroller, XboxController.Button.kRightBumper.value);
     private final JoystickButton MrightStick = new JoystickButton(Mcontroller, XboxController.Button.kRightStick.value);
     private final JoystickButton MleftStick = new JoystickButton(Mcontroller, XboxController.Button.kLeftStick.value);
 
