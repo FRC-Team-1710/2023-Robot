@@ -64,6 +64,7 @@ public class RobotContainer {
     private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
     private final PneumaticSubsystem m_PneumaticSubsystem = new PneumaticSubsystem();
     private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
     // private final LedSubsystem m_LedSubsystem = new LedSubsystem();
 
     /* Trajectories */
@@ -107,16 +108,18 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Buttons */
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-        DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
+        //DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
         DleftBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.4)));
         DbButton.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
+        //DrightBumper.onTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
+        DrightBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
 
-        MyButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 11, 180 + 9, 100, 10)); // change
-        MbButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 53, 180 - 66, 100, 10)); // change
-        MaButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 38, 180 - 138, 250, 7)); // change
-        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 98, 180 - 146, 100, 7)); // change
-        MleftBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 84, 180 - 93, 100, 10));
-        MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 26, 180 - 85, 100, 10));
+        MyButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 44 - 28, -14 + 321, 100, 10)); // change
+        MbButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 80 - 28, -76 + 321, 100, 10)); // change
+        MaButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 70 - 28, -155 + 321, 200, 6)); // change
+        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 104 - 28, -160 + 321, 200, 7)); // change
+        MleftBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 113 - 28, -124 + 321, 100, 10));
+        //MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 26, 180 - 85, 100, 10));
         MrightStick.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0));
     }
@@ -129,6 +132,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath);
-        return new PPauto(m_SwerveSubsystem);
+        return new threePtAuto(m_SwerveSubsystem, m_IntakeSubsystem);
     }
 }

@@ -29,7 +29,7 @@ public class PPauto extends SequentialCommandGroup {
                 m_SwerveSubsystem);
 
         addCommands(
-            new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()),
+            new InstantCommand(() -> m_SwerveSubsystem.setGyro(0)),
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(trajectory.getInitialPose())),
                 swerveControllerCommand);
     }

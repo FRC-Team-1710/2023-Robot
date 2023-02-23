@@ -75,13 +75,8 @@ public class VisionSubsystem extends SubsystemBase {
    * }
    */
 
-  public void setScleraPipeline(String newPipeline) {
-    if (newPipeline == "cube") {
-      Sclera.setPipelineIndex(0);
-    }
-    if (newPipeline == "cone") {
-      Sclera.setPipelineIndex(1);
-    }
+  public void setScleraPipeline(int pipeline) {
+      Sclera.setPipelineIndex(pipeline);
   }
 
   public int pipelinePanic(String cam) {
@@ -142,16 +137,23 @@ public class VisionSubsystem extends SubsystemBase {
     return angle;
   }
 
-  public double getXOffsetGP(String pipeline) {
-    if (pipeline == "cone") {
-      Sclera.setPipelineIndex(0);
-    } else {
-      Sclera.setPipelineIndex(1);
-    }
+  public double getXOffsetGP() {
+    
     var resultsSclera = Sclera.getLatestResult();
     double offset;
     if (resultsSclera.hasTargets()) {
       offset = resultsSclera.getBestTarget().getYaw();
+    } else {
+      offset = 0;
+    }
+    return offset;
+  }
+  public double getYOffsetGP() {
+    
+    var resultsSclera = Sclera.getLatestResult();
+    double offset;
+    if (resultsSclera.hasTargets()) {
+      offset = resultsSclera.getBestTarget().getPitch();
     } else {
       offset = 0;
     }

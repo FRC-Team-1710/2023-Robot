@@ -17,9 +17,9 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class threePtAuto extends SequentialCommandGroup {
     public threePtAuto(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem) {
 
-      PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("Score 2 pt 1", new PathConstraints(2, 3));
+      PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("Score 2 pt 1", new PathConstraints(.5, .5));
       PathPlannerTrajectory trajectory2 = PathPlanner.loadPath("Score 2 pt 2", new PathConstraints(.5, .5));
-      PathPlannerTrajectory trajectory3 = PathPlanner.loadPath("Score 2 pt 3", new PathConstraints(2, 3));
+      PathPlannerTrajectory trajectory3 = PathPlanner.loadPath("Score 2 pt 3", new PathConstraints(.5, .5));
 
         PPSwerveControllerCommand path1 = new PPSwerveControllerCommand(
                 trajectory1,
@@ -57,7 +57,7 @@ public class threePtAuto extends SequentialCommandGroup {
 
 
         addCommands(
-            new InstantCommand(() -> m_SwerveSubsystem.setGyro(270)),
+            new InstantCommand(() -> m_SwerveSubsystem.setGyro(180)),
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(trajectory1.getInitialPose())),
                 new InstantCommand(() -> m_IntakeSubsystem.spin(-.3)),
                 new WaitCommand(1),
