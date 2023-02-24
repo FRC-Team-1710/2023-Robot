@@ -34,7 +34,7 @@ public class AutoWithEvents extends SequentialCommandGroup {
         // global event map
         // in your code that will be used by all path following commands.
         HashMap<String, Command> eventMap = new HashMap<>();
-        eventMap.put("Intake", new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
+        eventMap.put("Intake", new InstantCommand(() -> m_IntakeSubsystem.spin(.5)));
         eventMap.put("Intook", new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
 
         PPSwerveControllerCommand swerveControllerCommand = new PPSwerveControllerCommand(

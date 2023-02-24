@@ -24,11 +24,11 @@
     },
     {
       "anchorPoint": {
-        "x": 5.0,
+        "x": 4.0,
         "y": 3.0
       },
       "prevControl": {
-        "x": 5.001671931220691,
+        "x": 4.001671931220691,
         "y": 3.0
       },
       "nextControl": null,
@@ -50,13 +50,13 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 0.25,
+      "position": 0.3,
       "names": [
         "Intake"
       ]
     },
     {
-      "position": 0.5000000000000001,
+      "position": 0.5999999999999994,
       "names": [
         "Intook"
       ]

@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -62,6 +61,7 @@ public class RobotContainer {
     private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
     private final PneumaticSubsystem m_PneumaticSubsystem = new PneumaticSubsystem();
     private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
     // private final LedSubsystem m_LedSubsystem = new LedSubsystem();
 
     /* Trajectories */
@@ -79,15 +79,10 @@ public class RobotContainer {
                         () -> -Dcontroller.getRawAxis(rotationAxis) * .75,
                         () -> DleftStick.getAsBoolean()));
 
-        try {
-            testPath = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                            "pathplanner/generatedJSON/TEST.wpilib.json"));
-
-        } catch (IOException ex) {
-            DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-        }
-
+        m_VisionSubsystem.setDefaultCommand(
+            new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem)
+        );
+        
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
         // Configure the button bindings
@@ -105,8 +100,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Buttons */
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-        DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
-        DleftBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.4)));
+        DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.6)));
+        DleftBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.6)));
         DbButton.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
 
         MyButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 11, 180 + 9, 100, 10)); // change
@@ -127,6 +122,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath);
-        return new PPauto(m_SwerveSubsystem);
+        return new AutoWithEvents(m_SwerveSubsystem, m_IntakeSubsystem);
     }
 }
