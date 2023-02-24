@@ -82,7 +82,13 @@ public class RobotContainer {
         m_VisionSubsystem.setDefaultCommand(
             new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem)
         );
-        
+
+        m_IntakeSubsystem.setDefaultCommand(
+            new IntakeCommand(
+            m_IntakeSubsystem, 
+            () -> DrightBumper.getAsBoolean(), 
+            () -> DleftBumper.getAsBoolean()));
+
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
         // Configure the button bindings
@@ -100,9 +106,6 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Buttons */
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-        DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.6)));
-        DleftBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.6)));
-        DbButton.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
 
         MyButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 11, 180 + 9, 100, 10)); // change
         MbButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 53, 180 - 66, 100, 10)); // change
