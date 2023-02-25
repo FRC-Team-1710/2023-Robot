@@ -24,6 +24,7 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     private Field2d m_field = new Field2d();
+    public boolean odometryDisabled = false;
 
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
@@ -121,8 +122,10 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic(){
-        swerveOdometry.update(getYaw(), getModulePositions());  
-        SmartDashboard.putNumber("gyro", getYaw().getDegrees() - 90);
+        if (!odometryDisabled){
+            swerveOdometry.update(getYaw(), getModulePositions());
+        }
+        SmartDashboard.putNumber("gyro", getYaw().getDegrees());
 
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());

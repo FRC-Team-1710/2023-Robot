@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -43,8 +42,7 @@ public class RobotContainer {
     private final JoystickButton DxButton = new JoystickButton(Dcontroller, XboxController.Button.kX.value);
     private final JoystickButton DyButton = new JoystickButton(Dcontroller, XboxController.Button.kY.value);
     private final JoystickButton DleftBumper = new JoystickButton(Dcontroller, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton DrightBumper = new JoystickButton(Dcontroller,
-            XboxController.Button.kRightBumper.value);
+    private final JoystickButton DrightBumper = new JoystickButton(Dcontroller, XboxController.Button.kRightBumper.value);
     private final JoystickButton DrightStick = new JoystickButton(Dcontroller, XboxController.Button.kRightStick.value);
     private final JoystickButton DleftStick = new JoystickButton(Dcontroller, XboxController.Button.kLeftStick.value);
 
@@ -54,8 +52,7 @@ public class RobotContainer {
     private final JoystickButton MxButton = new JoystickButton(Mcontroller, XboxController.Button.kX.value);
     private final JoystickButton MyButton = new JoystickButton(Mcontroller, XboxController.Button.kY.value);
     private final JoystickButton MleftBumper = new JoystickButton(Mcontroller, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton MrightBumper = new JoystickButton(Mcontroller,
-            XboxController.Button.kRightBumper.value);
+    private final JoystickButton MrightBumper = new JoystickButton(Mcontroller, XboxController.Button.kRightBumper.value);
     private final JoystickButton MrightStick = new JoystickButton(Mcontroller, XboxController.Button.kRightStick.value);
     private final JoystickButton MleftStick = new JoystickButton(Mcontroller, XboxController.Button.kLeftStick.value);
 
@@ -82,6 +79,16 @@ public class RobotContainer {
                         () -> -Dcontroller.getRawAxis(rotationAxis) * .75,
                         () -> DleftStick.getAsBoolean()));
 
+        m_VisionSubsystem.setDefaultCommand(
+            new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem)
+        );
+
+        m_IntakeSubsystem.setDefaultCommand(
+            new IntakeCommand(
+            m_IntakeSubsystem, 
+            () -> DrightBumper.getAsBoolean(), 
+            () -> DleftBumper.getAsBoolean()));
+
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
         // Configure the button bindings
@@ -99,11 +106,6 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Buttons */
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-        //DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
-        DleftBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.6)));
-        DbButton.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
-        //DrightBumper.onTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
-        DrightBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.6)));
 
         double hos = -28;
         double uos = 321;
@@ -128,6 +130,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath);
-        return new threePtAuto(m_SwerveSubsystem, m_IntakeSubsystem);
+        return new AutoWithEvents(m_SwerveSubsystem, m_IntakeSubsystem);
     }
 }
