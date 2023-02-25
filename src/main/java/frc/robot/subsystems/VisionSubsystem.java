@@ -6,8 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
 
 public class VisionSubsystem extends SubsystemBase {
   /** Creates a new VisionSubsystem. */
@@ -34,7 +34,10 @@ public class VisionSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Tag Y Dis", getYDisToTag());
     SmartDashboard.putNumber("angle target", angleToTag());
     SmartDashboard.putNumber("straight dis", straightToTag());
-    SmartDashboard.putNumber("hypo", Math.sqrt((getXDisToTag() * getXDisToTag()) + (getYDisToTag() * getYDisToTag())));
+    SmartDashboard.putNumber("current X", getCurrentX());
+    SmartDashboard.putNumber("current Y", getCurrentY());
+    SmartDashboard.putNumber("THA X", getXDisToTag());
+    SmartDashboard.putNumber("THA Y", getYDisToTag());
   }
 
   public boolean irisHasTarget() {
@@ -64,6 +67,8 @@ public class VisionSubsystem extends SubsystemBase {
       return false;
     }
   }
+
+  
   /*
    * public void setRetinaPipeline(String newPipeline) {
    * if (newPipeline == "cube") {
@@ -76,7 +81,7 @@ public class VisionSubsystem extends SubsystemBase {
    */
 
   public void setScleraPipeline(int pipeline) {
-      Sclera.setPipelineIndex(pipeline);
+    Sclera.setPipelineIndex(pipeline);
   }
 
   public int pipelinePanic(String cam) {
@@ -84,23 +89,22 @@ public class VisionSubsystem extends SubsystemBase {
       var results = Sclera.getLatestResult();
       Sclera.setPipelineIndex(0);
       double coneTar = results.getBestTarget().getArea();
-        Sclera.setPipelineIndex(1);
+      Sclera.setPipelineIndex(1);
       double cubeTar = results.getBestTarget().getArea();
-      if (coneTar >= cubeTar){
+      if (coneTar >= cubeTar) {
         return 0;
       } else {
         return 1;
       }
-      } else{
-        return 0;
-      }
+    } else {
+      return 0;
     }
-  
+  }
 
   public double getXDisToTag() {
     var resultsIris = Iris.getLatestResult();
     if (resultsIris.hasTargets()) {
-      return (resultsIris.getBestTarget().getBestCameraToTarget().getX() * 39.37);
+      return ((68.1 * resultsIris.getBestTarget().getPitch()) + 439);
     } else {
       return 0;
     }
@@ -109,7 +113,7 @@ public class VisionSubsystem extends SubsystemBase {
   public double getYDisToTag() {
     var resultsIris = Iris.getLatestResult();
     if (resultsIris.hasTargets()) {
-      return (resultsIris.getBestTarget().getBestCameraToTarget().getY() * 39.37);
+      return (resultsIris.getBestTarget().getBestCameraToTarget().getY());
     } else {
       return 0;
     }
@@ -138,7 +142,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getXOffsetGP() {
-    
+
     var resultsSclera = Sclera.getLatestResult();
     double offset;
     if (resultsSclera.hasTargets()) {
@@ -148,8 +152,9 @@ public class VisionSubsystem extends SubsystemBase {
     }
     return offset;
   }
+
   public double getYOffsetGP() {
-    
+
     var resultsSclera = Sclera.getLatestResult();
     double offset;
     if (resultsSclera.hasTargets()) {
@@ -158,6 +163,109 @@ public class VisionSubsystem extends SubsystemBase {
       offset = 0;
     }
     return offset;
+  }
+
+  public int getTagID() {
+    var rIris = Iris.getLatestResult();
+    int tagID;
+    if (rIris.hasTargets()) {
+      tagID = rIris.getBestTarget().getFiducialId();
+    } else {
+      tagID = 0;
+    }
+    return tagID;
+  }
+
+  public double getCurrentX() {
+    double IrisX = getXDisToTag();
+    int tagID = getTagID();
+    double tagX, currentX;
+    int sideC;
+
+    tagID = 0;
+    tagX = 0;
+    sideC = 1;
+
+    if (tagID == 1) {
+      tagX = 15.514;
+      sideC = -1;
+    }
+    if (tagID == 2) {
+      tagX = 15.514;
+      sideC = -1;
+    }
+    if (tagID == 3) {
+      tagX = 15.514;
+      sideC = -1;
+    }
+    if (tagID == 4) {
+      tagX = 16.179;
+      sideC = -1;
+    }
+    if (tagID == 5) {
+      tagX = .362;
+      sideC = 1;
+    }
+    if (tagID == 6) {
+      tagX = 1.027;
+      sideC = 1;
+    }
+    if (tagID == 7) {
+      tagX = 1.027;
+      sideC = 1;
+    }
+    if (tagID == 8) {
+      tagX = 1.027;
+      sideC = 1;
+    }
+
+    currentX = tagX + (sideC * IrisX);
+    return currentX;
+  }
+
+  public double getCurrentY() {
+    double IrisY = getYDisToTag();
+    int tagID = getTagID();
+    double tagY = 0, currentY;
+    int sideC = 1, sideT = 1;
+
+    if (tagID == 1) {
+      tagY = 1.072;
+      sideC = -1;
+    }
+    if (tagID == 2) {
+      tagY = 2.748;
+      sideC = -1;
+    }
+    if (tagID == 3) {
+      tagY = 4.424;
+      sideC = -1;
+    }
+    if (tagID == 4) {
+      tagY = 6.75;
+      sideC = -1;
+    }
+    if (tagID == 5) {
+      tagY = 6.75;
+      sideC = 1;
+    }
+    if (tagID == 6) {
+      tagY = 4.424;
+      sideC = 1;
+    }
+    if (tagID == 7) {
+      tagY = 2.748;
+      sideC = 1;
+    }
+    if (tagID == 8) {
+      tagY = 1.072;
+      sideC = 1;
+    }
+
+    currentY = tagY + (sideC * sideT * IrisY);
+
+    return currentY;
+
   }
 }
 

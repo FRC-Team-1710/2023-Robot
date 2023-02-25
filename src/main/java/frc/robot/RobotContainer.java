@@ -82,15 +82,6 @@ public class RobotContainer {
                         () -> -Dcontroller.getRawAxis(rotationAxis) * .75,
                         () -> DleftStick.getAsBoolean()));
 
-        try {
-            testPath = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                            "pathplanner/generatedJSON/TEST.wpilib.json"));
-
-        } catch (IOException ex) {
-            DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-        }
-
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
         // Configure the button bindings
@@ -109,16 +100,21 @@ public class RobotContainer {
         /* Buttons */
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
         //DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
-        DleftBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.4)));
+        DleftBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.6)));
         DbButton.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
         //DrightBumper.onTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
-        DrightBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.4)));
+        DrightBumper.whileTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.6)));
 
-        MyButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 44 - 28, -14 + 321, 100, 10)); // change
-        MbButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 80 - 28, -76 + 321, 100, 10)); // change
-        MaButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 70 - 28, -155 + 321, 200, 6)); // change
-        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 104 - 28, -160 + 321, 200, 7)); // change
-        MleftBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 113 - 28, -124 + 321, 100, 10));
+        double hos = -28;
+        double uos = 321;
+        //MyButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 44 + hos, -14 + uos, 100, 10)); // change
+        //MbButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 80 + hos, -76 + uos, 100, 10)); // change
+        MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 44 + hos, -14 + uos));
+        MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 80 + hos, -76 + uos));
+        MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 70 + hos, -155 + uos)); // change
+        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 104 + hos, -160 + uos, 200, 7)); // change
+        MleftBumper.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 113 + hos, -124 + uos));
+        MrightBumper.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 70 + hos, -155 + uos));
         //MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 26, 180 - 85, 100, 10));
         MrightStick.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0));
