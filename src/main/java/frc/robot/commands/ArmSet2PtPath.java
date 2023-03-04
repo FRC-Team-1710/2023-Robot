@@ -19,8 +19,8 @@ public class ArmSet2PtPath extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
 
-    pt1 = new ArmSetAngles(subsystem, Hangle1, Uangle1, 100, 6.5);
-    pt2 = new ArmSetAngles(subsystem, Hangle2, Uangle2, 200, 6.5);
+    pt1 = new ArmSetAngles(subsystem, Hangle1, Uangle1, 100, 8);
+    pt2 = new ArmSetAngles(subsystem, Hangle2, Uangle2, 200, 8);
     addCommands(
         pt1,
         pt2);

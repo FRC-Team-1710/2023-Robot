@@ -94,7 +94,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void manualMove(double hspeed, double uspeed) {
     hm1.set(hspeed / 200);
-    um1.set(-uspeed / 200);
+    um1.set(uspeed / 200);
   }
   public void stopArm(){
     hm1.set(0);

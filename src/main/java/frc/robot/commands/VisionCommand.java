@@ -16,7 +16,7 @@ public class VisionCommand extends CommandBase {
     /** Creates a new VisionCommand. */
     public VisionCommand(VisionSubsystem m_VisionSubsystem, Swerve m_SwerveSubsystem) {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_VisionSubsystem, m_SwerveSubsystem);
+        addRequirements(m_VisionSubsystem);
         swerveSubsystem = m_SwerveSubsystem;
         visionSubsystem = m_VisionSubsystem;
     }

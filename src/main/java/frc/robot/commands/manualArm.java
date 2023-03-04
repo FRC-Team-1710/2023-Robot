@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class manualArm extends CommandBase {
@@ -29,7 +31,10 @@ public class manualArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.manualMove(hspeed, uspeed);
+    
+      m_subsystem.manualMove(hspeed, uspeed);
+    
+    
   }
 
   // Called once the command ends or is interrupted.
