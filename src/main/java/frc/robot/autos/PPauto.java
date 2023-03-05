@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class PPauto extends SequentialCommandGroup {
     public PPauto(Swerve m_SwerveSubsystem) {
 
-        PathPlannerTrajectory trajectory = PathPlanner.loadPath("straight2", new PathConstraints(3, 3));
+        PathPlannerTrajectory trajectory = PathPlanner.loadPath("CHARGE STATION", new PathConstraints(3, 3));
 
         PPSwerveControllerCommand swerveControllerCommand = new PPSwerveControllerCommand(
                 trajectory,
@@ -25,7 +25,7 @@ public class PPauto extends SequentialCommandGroup {
                 new PIDController(Constants.AutoConstants.kPYController, 0, 0),
                 new PIDController(0, 0, 0),
                 m_SwerveSubsystem::setModuleStates,
-                true,
+                false,
                 m_SwerveSubsystem);
 
         addCommands(

@@ -12,16 +12,17 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeCommand extends CommandBase {
 
   IntakeSubsystem intake;
-  Boolean rightPressed;
-  Boolean leftPressed;
+  BooleanSupplier rightPressed;
+  BooleanSupplier leftPressed;
 
   /** Creates a new IntakeCommand. */
   public IntakeCommand(IntakeSubsystem intakeSubsystem, BooleanSupplier rBumper, BooleanSupplier lBumper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    rightPressed = rBumper.getAsBoolean();
-    leftPressed = lBumper.getAsBoolean();
     intake = intakeSubsystem;
     addRequirements(intakeSubsystem);
+
+    rightPressed = rBumper;
+    leftPressed = lBumper;
   }
 
   // Called when the command is initially scheduled.
@@ -33,9 +34,9 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (rightPressed){
+    if (rightPressed.getAsBoolean()){
       intake.spin(.5);
-    } else if (leftPressed){
+    } else if (leftPressed.getAsBoolean()){
       intake.spin(-.5);
     } else {
       intake.spin(0);
