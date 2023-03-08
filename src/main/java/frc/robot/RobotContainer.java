@@ -119,19 +119,19 @@ public class RobotContainer {
         DrightBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(.5)));
         DleftBumper.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(-.5)));
         DbButton.onTrue(new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
-        double hos = -28;
-        double uos = 193.5;
+        double hos = 0;
+        double uos = 0;
         //MyButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 44 + hos, -14 + uos, 100, 10)); // change
         //MbButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 80 + hos, -76 + uos, 100, 10)); // change
-        MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 110 + hos, -160 + uos, 44 + hos, -14 + uos));
-        MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 80 + hos, -83 + uos));
-        MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 70 + hos, -155 + uos)); // change
-        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 104 + hos, -160 + uos, 200, 7)); // change
-        MleftBumper.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 104 + hos, -160 + uos, 113 + hos, -100 + uos));
-        MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 100 + hos, 0 + uos, 200, 6.5));
+        MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 265, 230, 354.8, 76, 25, 40, 80, 40)); //high
+        MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 265, 230, 310, 154, 25,40,70,30)); //mid
+        MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 277, 233, 312, 230,50,25,100,15)); // intake
+        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem, 277, 233, 30, 30)); // safe position
+        //MleftBumper.onTrue(new ArmSet2PtPath(m_ArmSubsystem, 277 + hos, 232.5 + uos, 113 + hos, -100 + uos));
+        //MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 29 + hos, -100 + uos, 75, 30));
         //MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem, 0 + 26, 180 - 85, 100, 10));
         MrightStick.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
-        MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0));
+        MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0)); //stop arm
     }
 
     /**

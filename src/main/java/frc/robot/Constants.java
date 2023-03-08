@@ -17,8 +17,8 @@ public final class Constants {
     public static final int phPort = 7;
     public static final int kPneuForwardPort = 8;
     public static final int kPneuReversePort = 9;
-    public static final int kPneu2ForwardPort = 0;
-    public static final int kPneu2ReversePort = 7;
+    public static final int kPneu2ForwardPort = 15;
+    public static final int kPneu2ReversePort = 9;
 
     /*ARM CONSTANTS*/
     public static final int humerusMotor1ID = 30;

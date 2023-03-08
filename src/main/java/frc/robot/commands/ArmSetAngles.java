@@ -40,6 +40,6 @@ public class ArmSetAngles extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(hangle - m_subsystem.getHPos()) < 4 && Math.abs(uangle - m_subsystem.getUPos()) < 4);
+    return (Math.abs(hangle - m_subsystem.getHPos()) < 2 && Math.abs(uangle - m_subsystem.getUPos()) < 4);
   }
 }

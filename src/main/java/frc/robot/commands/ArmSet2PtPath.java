@@ -14,13 +14,24 @@ public class ArmSet2PtPath extends SequentialCommandGroup {
   /** Creates a new ArmSetPath. */
 
   private final ArmSetAngles pt1, pt2;
-
-  public ArmSet2PtPath(ArmSubsystem subsystem, double Hangle1, double Uangle1, double Hangle2, double Uangle2) {
+  /**
+   * Moves the arm to a first set position, then a second position
+   * @param subsystem ArmSubsystem is needed to run this
+   * @param Hangle1 first set angle for the lower arm
+   * @param Uangle1 first set angle for the upper arm
+   * @param Hangle2 second angle for the lower arm
+   * @param Uangle2 second angle for the upper arm
+   * @param hdf1 speed to divide the lower arm for first point
+   * @param udf1 speed to divide the upper arm for first point
+   * @param hdf2 speed to divide the lower arm for second point
+   * @param udf2 speed to divide the upper arm for second point
+   */
+  public ArmSet2PtPath(ArmSubsystem subsystem, double Hangle1, double Uangle1, double Hangle2, double Uangle2, double hdf1, double udf1, double hdf2, double udf2) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
 
-    pt1 = new ArmSetAngles(subsystem, Hangle1, Uangle1, 100, 8);
-    pt2 = new ArmSetAngles(subsystem, Hangle2, Uangle2, 200, 8);
+    pt1 = new ArmSetAngles(subsystem, Hangle1, Uangle1, hdf1, udf1);
+    pt2 = new ArmSetAngles(subsystem, Hangle2, Uangle2, hdf2, udf2);
     addCommands(
         pt1,
         pt2);
