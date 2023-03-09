@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class threePtAuto extends SequentialCommandGroup {
     public threePtAuto(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem) {
 
-        PathPlannerTrajectory trajectory0 = PathPlanner.loadPath("Score 2 pt 0", new PathConstraints(3, 2.5));
-        PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("Score 2 pt 1", new PathConstraints(3, 2.5));
+        PathPlannerTrajectory trajectory0 = PathPlanner.loadPath("Score 2 pt 1-1", new PathConstraints(2, 2));
+        PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("Score 2 pt 1-2", new PathConstraints(2, 2));
         PathPlannerTrajectory trajectory2 = PathPlanner.loadPath("Score 2 pt 2", new PathConstraints(3, 2.5));
         PathPlannerTrajectory trajectory3 = PathPlanner.loadPath("Score 2 pt 3", new PathConstraints(3, 2.5));
 
@@ -31,28 +31,29 @@ public class threePtAuto extends SequentialCommandGroup {
         eventMap.put("Intake", new InstantCommand(() -> m_IntakeSubsystem.spin(.5)));
         eventMap.put("Intook", new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
 
-        double P = 2;
-        double D = .07;
-        double D2 = .05;
+        double rotP = 1.25;
+        double rotD = 0.06;
+        double driveP = 1.5;
+        double driveD = 0.02;
 
-        PPSwerveControllerCommand path0 = new PPSwerveControllerCommand(
+        /*PPSwerveControllerCommand path0 = new PPSwerveControllerCommand(
                 trajectory0,
                 m_SwerveSubsystem::getPose,
                 Constants.Swerve.swerveKinematics,
-                new PIDController(Constants.AutoConstants.kPXController, 0, D2),
-                new PIDController(Constants.AutoConstants.kPYController, 0, D2),
+                new PIDController(driveP, 0, D2),
+                new PIDController(driveP, 0, D2),
                 new PIDController(P, 0, D),
                 m_SwerveSubsystem::setModuleStates,
                 false,
-                m_SwerveSubsystem);
+                m_SwerveSubsystem);*/
 
         PPSwerveControllerCommand path1 = new PPSwerveControllerCommand(
                 trajectory1,
                 m_SwerveSubsystem::getPose,
                 Constants.Swerve.swerveKinematics,
-                new PIDController(Constants.AutoConstants.kPXController, 0, D2),
-                new PIDController(Constants.AutoConstants.kPYController, 0, D2),
-                new PIDController(P, 0, D),
+                new PIDController(driveP, 0, driveD),
+                new PIDController(driveP, 0, driveD),
+                new PIDController(rotP, 0, rotD),
                 m_SwerveSubsystem::setModuleStates,
                 false,
                 m_SwerveSubsystem);
@@ -61,9 +62,9 @@ public class threePtAuto extends SequentialCommandGroup {
                 trajectory2,
                 m_SwerveSubsystem::getPose,
                 Constants.Swerve.swerveKinematics,
-                new PIDController(Constants.AutoConstants.kPXController, 0, D2),
-                new PIDController(Constants.AutoConstants.kPYController, 0, D2),
-                new PIDController(P, 0, D),
+                new PIDController(driveP, 0, driveD),
+                new PIDController(driveP, 0, driveD),
+                new PIDController(rotP, 0, rotD),
                 m_SwerveSubsystem::setModuleStates,
                 false,
                 m_SwerveSubsystem);
@@ -72,9 +73,9 @@ public class threePtAuto extends SequentialCommandGroup {
                 trajectory3,
                 m_SwerveSubsystem::getPose,
                 Constants.Swerve.swerveKinematics,
-                new PIDController(Constants.AutoConstants.kPXController, 0, D2),
-                new PIDController(Constants.AutoConstants.kPYController, 0, D2),
-                new PIDController(P, 0, D),
+                new PIDController(driveP, 0, driveD),
+                new PIDController(driveP, 0, driveD),
+                new PIDController(rotP, 0, rotD),
                 m_SwerveSubsystem::setModuleStates,
                 false,
                 m_SwerveSubsystem);
@@ -94,9 +95,9 @@ public class threePtAuto extends SequentialCommandGroup {
                 new InstantCommand(() -> m_SwerveSubsystem.setGyro(0)),
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(trajectory0.getInitialPose())),
                 //new WaitCommand(.1),
-                path0,
+              //  path0,
                 new IntakeSpin(m_IntakeSubsystem, -.5),
-                new WaitCommand(.75),
+                new WaitCommand(.65),
                 new IntakeSpin(m_IntakeSubsystem, 0),
                 command,
                 path2,
