@@ -70,8 +70,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void setAngles(double hangle, double uangle, double hdf, double udf) {
     //hangle = humerus angle, uangle = ulna angle, hdf = humerus division factor, udf = ulna division factor
-    hm1.set((hPID.calculate(humerus_encoder.get() * 360, hangle) / (hdf)));
-    um1.set(-1 * (uPID.calculate(ulna_encoder.get() * 360, uangle) / (udf)));
+    hm1.set(-1 * (hPID.calculate(humerus_encoder.get() * 360, hangle) / (hdf)));
+    um1.set(1 * (uPID.calculate(ulna_encoder.get() * 360, uangle) / (udf)));
   }
 
   public double getHPos() {
@@ -94,7 +94,11 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void manualMove(double hspeed, double uspeed) {
     hm1.set(hspeed / 200);
-    um1.set(-uspeed / 200);
+    um1.set(uspeed / 200);
+  }
+  public void stopArm(){
+    hm1.set(0);
+    um1.set(0);
   }
 
 }
