@@ -68,10 +68,32 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("uln speed", um1.get());
   }
 
-  public void setAngles(double hangle, double uangle, double hdf, double udf) {
+  public void setAngles(double hangle, double uangle, double hdf, double udf, double hp, double hi, double hd, double up, double ui, double ud) {
     //hangle = humerus angle, uangle = ulna angle, hdf = humerus division factor, udf = ulna division factor
-    hm1.set(-1 * (hPID.calculate(humerus_encoder.get() * 360, hangle) / (hdf)));
-    um1.set(1 * (uPID.calculate(ulna_encoder.get() * 360, uangle) / (udf)));
+
+    hPID.setPID(hp, hi, hd);
+    uPID.setPID(up, ui, ud);
+
+    double getH = (humerus_encoder.get() * 360);
+
+    if(getH > 360){
+      getH = getH - 360;
+    }
+    if(getH < 0){
+      getH = getH + 360;
+    }
+
+    double getU = (ulna_encoder.get() * 360);
+
+    if(getU > 360){
+      getH = getU - 360;
+    }
+    if(getU < 0){
+      getU = getU + 360;
+    }
+
+    hm1.set(-1 * (hPID.calculate(getH, hangle) / (hdf)));
+    um1.set(1 * (uPID.calculate(getU, uangle) / (udf)));
   }
 
   public double getHPos() {

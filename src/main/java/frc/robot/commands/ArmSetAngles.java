@@ -10,8 +10,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArmSetAngles extends CommandBase {
   /** Creates a new ArmCommand. */
   private final ArmSubsystem m_subsystem;
-  private double hangle, uangle, HDF, UDF;
-  public ArmSetAngles(ArmSubsystem subsystem, double Hangle, double Uangle, double hdf, double udf) {
+  private double hangle, uangle, HDF, UDF, HP,HI,HD,UP,UI,UD,HSR,USR;
+  public ArmSetAngles(ArmSubsystem subsystem,
+  double Hangle, double Uangle, double hdf, double udf,
+  double hp, double hi, double hd, double up, double ui, double ud, double hsr, double usr) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_subsystem = subsystem;
     addRequirements(subsystem);
@@ -19,6 +21,14 @@ public class ArmSetAngles extends CommandBase {
    uangle = Uangle;
    HDF = hdf;
    UDF = udf;
+   HP = hp;
+   HI = hi;
+   HD = hd;
+   UP = up;
+   UI = ui;
+   UD = ud;
+   HSR = hsr;
+   USR = usr;
   }
 
   // Called when the command is initially scheduled.
@@ -28,7 +38,7 @@ public class ArmSetAngles extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.setAngles(hangle, uangle, HDF, UDF);
+    m_subsystem.setAngles(hangle, uangle, HDF, UDF, HP,HI,HD,UP,UI,UD);
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +50,6 @@ public class ArmSetAngles extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(hangle - m_subsystem.getHPos()) < 2 && Math.abs(uangle - m_subsystem.getUPos()) < 4);
+    return (Math.abs(hangle - m_subsystem.getHPos()) < HSR && Math.abs(uangle - m_subsystem.getUPos()) < USR);
   }
 }
