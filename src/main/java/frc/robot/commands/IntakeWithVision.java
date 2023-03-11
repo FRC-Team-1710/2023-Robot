@@ -28,16 +28,16 @@ public class IntakeWithVision extends CommandBase {
     m_VisionSubsystem = subsystem2;
 
     addRequirements(subsystem, subsystem1, subsystem2);
-    xPidController = new PIDController(.09, .0, 0);
-    yPidController = new PIDController(.07, .0, 0);
+    xPidController = new PIDController(.1, .05, 0);
+    yPidController = new PIDController(.3, .1, 0);
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    int bestPipe = m_VisionSubsystem.pipelinePanic("Sclera");
-    m_VisionSubsystem.setScleraPipeline(bestPipe);
+   // int bestPipe = m_VisionSubsystem.pipelinePanic("Sclera");
+    m_VisionSubsystem.setScleraPipeline(1);
     timer.reset();
   }
 
@@ -46,15 +46,15 @@ public class IntakeWithVision extends CommandBase {
   public void execute() {
     double xDisplacement = m_VisionSubsystem.getXOffsetGP();
     double yDisplacement = m_VisionSubsystem.getYOffsetGP();
-    double vx = xPidController.calculate(xDisplacement, -3);
-    double vy = yPidController.calculate(yDisplacement, 0);
-    if (yDisplacement < 3) {
+    double vx = xPidController.calculate(xDisplacement, -1);
+    double vy = yPidController.calculate(yDisplacement, 1);
+    if (yDisplacement <= 2) {
       timer.start();
       double time = timer.get();
       SmartDashboard.putNumber("INTAKE TIMER", time);
 
-      m_IntakeSubsystem.spin(.3);
-      m_SwerveSub.drive(new Translation2d(.3, 0), vx, false, false);
+      m_IntakeSubsystem.spin(.5);
+      m_SwerveSub.drive(new Translation2d(.7, 0), vx, false, false);
 
     } else {
       if (m_VisionSubsystem.scleraHasTarget()) {
@@ -72,11 +72,12 @@ public class IntakeWithVision extends CommandBase {
     timer.stop();
   }
 
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     double time = timer.get();
-    return (time > 2);
+    return (time > 1);
 
   }
 }

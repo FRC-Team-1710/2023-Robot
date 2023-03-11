@@ -6,8 +6,17 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonCamera;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+ import edu.wpi.first.apriltag.AprilTagFields;
+ import edu.wpi.first.math.geometry.Pose2d;
+ import edu.wpi.first.wpilibj.DriverStation;
+ import java.io.IOException;
+ import java.util.Optional;
+ import org.photonvision.EstimatedRobotPose;
+ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+ import frc.robot.Constants;
 
 public class VisionSubsystem extends SubsystemBase {
     /** Creates a new VisionSubsystem. */
@@ -15,7 +24,24 @@ public class VisionSubsystem extends SubsystemBase {
     // PhotonCamera Retina = new PhotonCamera("Retina");
     PhotonCamera Sclera = new PhotonCamera("Sclera");
 
+    private PhotonPoseEstimator photonPoseEstimator;
+
     public VisionSubsystem() {
+
+        try {
+            // Attempt to load the AprilTagFieldLayout that will tell us where the tags are on the field.
+            AprilTagFieldLayout fieldLayout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
+            // Create pose estimator
+            photonPoseEstimator =
+                    new PhotonPoseEstimator(
+                            fieldLayout, PoseStrategy.AVERAGE_BEST_TARGETS, Iris, Constants.robotToCam);
+          
+        } catch (IOException e) {
+            // The AprilTagFieldLayout failed to load. We won't be able to estimate poses if we don't know
+            // where the tags are.
+            DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+            photonPoseEstimator = null;
+        }
 
     }
 
@@ -30,13 +56,14 @@ public class VisionSubsystem extends SubsystemBase {
         // SmartDashboard.putBoolean("Retina Target", retinaHasTarget());
         SmartDashboard.putBoolean("Sclera Target", scleraHasTarget());
 
-        
         SmartDashboard.putNumber("straight dis", straightToTag());
         SmartDashboard.putNumber("current X", getCurrentX());
         SmartDashboard.putNumber("current Y", getCurrentY());
         SmartDashboard.putNumber("THA X", getXDisToTag() * 39.7);
         SmartDashboard.putNumber("THA Y", getYDisToTag() * 39.7);
+        SmartDashboard.putNumber("THA Y TWO", getXDisToTag() * Math.tan(angleToTag()));
         SmartDashboard.putNumber("angle ", angleToTag());
+
     }
 
     public boolean irisHasTarget() {
@@ -102,7 +129,7 @@ public class VisionSubsystem extends SubsystemBase {
     public double getXDisToTag() {
         var resultsIris = Iris.getLatestResult();
         if (resultsIris.hasTargets()) {
-            //return ((68.1 * resultsIris.getBestTarget().getPitch()) + 439);
+            // return ((68.1 * resultsIris.getBestTarget().getPitch()) + 439);
             return (resultsIris.getBestTarget().getBestCameraToTarget().getX());
         } else {
             return 0;
@@ -121,8 +148,17 @@ public class VisionSubsystem extends SubsystemBase {
     public double angleToTag() {
         var resultsIris = Iris.getLatestResult();
         double angle;
+       
         if (resultsIris.hasTargets()) {
-            angle = resultsIris.getBestTarget().getBestCameraToTarget().getRotation().getAngle() * (180 / 3.14) - 180;
+            double rawAngle = resultsIris.getBestTarget().getBestCameraToTarget().getRotation().getZ() * (180 / 3.14);
+            if (rawAngle > 0) {
+                angle = 180 - rawAngle;
+            }
+            if (rawAngle < 0) {
+                angle = 180 + rawAngle;
+            } else {
+                angle = 0;
+            }
         } else {
             angle = 0;
         }
@@ -175,96 +211,163 @@ public class VisionSubsystem extends SubsystemBase {
         return tagID;
     }
 
-    public double getCurrentX() {
-        double IrisX = getXDisToTag();
-        int tagID = getTagID();
-        double tagX, currentX;
-        int sideC;
+    public double getIDX(int ID) {
 
-        tagID = 0;
-        tagX = 0;
-        sideC = 1;
+        int tagID = ID;
+        double tagX = 0;
 
         if (tagID == 1) {
             tagX = 15.514;
-            sideC = -1;
         }
         if (tagID == 2) {
             tagX = 15.514;
-            sideC = -1;
         }
         if (tagID == 3) {
             tagX = 15.514;
-            sideC = -1;
         }
         if (tagID == 4) {
             tagX = 16.179;
-            sideC = -1;
         }
         if (tagID == 5) {
             tagX = .362;
-            sideC = 1;
         }
         if (tagID == 6) {
             tagX = 1.027;
-            sideC = 1;
         }
         if (tagID == 7) {
             tagX = 1.027;
-            sideC = 1;
         }
         if (tagID == 8) {
             tagX = 1.027;
+        }
+        return tagX;
+
+    }
+
+    public int getIDXSc(int ID) {
+
+        int tagID = ID;
+        int sideC = 1;
+
+        if (tagID == 1) {
+            sideC = -1;
+        }
+        if (tagID == 2) {
+            sideC = -1;
+        }
+        if (tagID == 3) {
+            sideC = -1;
+        }
+        if (tagID == 4) {
+            sideC = -1;
+        }
+        if (tagID == 5) {
             sideC = 1;
         }
+        if (tagID == 6) {
+            sideC = 1;
+        }
+        if (tagID == 7) {
+            sideC = 1;
+        }
+        if (tagID == 8) {
+            sideC = 1;
+        }
+        return sideC;
+    }
+
+    public double getCurrentX() {
+        double IrisX = getXDisToTag();
+        int tagID = getTagID();
+        double tagX = getIDX(tagID), currentX;
+        int sideC = getIDXSc(tagID);
 
         currentX = tagX + (sideC * IrisX);
         return currentX;
     }
 
-    public double getCurrentY() {
-        double IrisY = getYDisToTag();
-        int tagID = getTagID();
-        double tagY = 0, currentY;
-        int sideC = 1, sideT = 1;
+    public double getIDY(int ID) {
+        int tagID = ID;
+        double tagY = 0;
 
         if (tagID == 1) {
             tagY = 1.072;
-            sideC = -1;
         }
         if (tagID == 2) {
             tagY = 2.748;
-            sideC = -1;
         }
         if (tagID == 3) {
             tagY = 4.424;
-            sideC = -1;
         }
         if (tagID == 4) {
             tagY = 6.75;
-            sideC = -1;
         }
         if (tagID == 5) {
             tagY = 6.75;
-            sideC = 1;
         }
         if (tagID == 6) {
             tagY = 4.424;
-            sideC = 1;
         }
         if (tagID == 7) {
             tagY = 2.748;
-            sideC = 1;
         }
         if (tagID == 8) {
             tagY = 1.072;
+        }
+        return tagY;
+    }
+
+    public int getIDYSc(int ID) {
+        int tagID = getTagID();
+        int sideC = 1;
+
+        if (tagID == 1) {
+            sideC = -1;
+        }
+        if (tagID == 2) {
+            sideC = -1;
+        }
+        if (tagID == 3) {
+            sideC = -1;
+        }
+        if (tagID == 4) {
+            sideC = -1;
+        }
+        if (tagID == 5) {
             sideC = 1;
         }
+        if (tagID == 6) {
+            sideC = 1;
+        }
+        if (tagID == 7) {
+            sideC = 1;
+        }
+        if (tagID == 8) {
+            sideC = 1;
+        }
+        return sideC;
+    }
 
-        currentY = tagY + (sideC * sideT * IrisY);
+    public double getCurrentY() {
+        double IrisY = getYDisToTag();
+        int tagID = getTagID();
+        double tagY = getIDY(tagID), currentY;
+        int sideC = getIDYSc(tagID), sideT = 1;
+
+        currentY = tagY - (sideC * sideT * IrisY);
 
         return currentY;
 
+    }
+
+
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
+        if (photonPoseEstimator == null) {
+            // The field layout failed to load, so we cannot estimate poses.
+            return Optional.empty();
+        }
+        photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
+        return photonPoseEstimator.update();
     }
 }
 
