@@ -17,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static CANSparkMax hm1, hm2, hm3, hm4, um1, um2;
   public static DutyCycleEncoder humerus_encoder, ulna_encoder;
   public static PIDController hPID, uPID;
+  public double getH, getU;
 
   final double hkP = 0.25;
   final double hkI = 0.1;
@@ -68,18 +69,40 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("uln speed", um1.get());
   }
 
-  public void setAngles(double hangle, double uangle, double hdf, double udf) {
+  public void setAngles(double hangle, double uangle, double hdf, double udf, double hp, double hi, double hd, double up, double ui, double ud) {
     //hangle = humerus angle, uangle = ulna angle, hdf = humerus division factor, udf = ulna division factor
-    hm1.set(-1 * (hPID.calculate(humerus_encoder.get() * 360, hangle) / (hdf)));
-    um1.set(1 * (uPID.calculate(ulna_encoder.get() * 360, uangle) / (udf)));
+
+    hPID.setPID(hp, hi, hd);
+    uPID.setPID(up, ui, ud);
+
+    getH = (humerus_encoder.get() * 360);
+
+    if(getH > 360){
+      getH = getH - 360;
+    }
+    if(getH < 0){
+      getH = getH + 360;
+    }
+
+    getU = (ulna_encoder.get() * 360);
+
+    if(getU > 360){
+      getU = getU - 360;
+    }
+    if(getU < 0){
+      getU = getU + 360;
+    }
+
+    hm1.set(-1 * (hPID.calculate(getH, hangle) / (hdf)));
+    um1.set(1 * (uPID.calculate(getU, uangle) / (udf)));
   }
 
   public double getHPos() {
-    return ((humerus_encoder.get() * 360));
+    return getH;
   }
 
   public double getUPos() {
-    return ((ulna_encoder.get() * 360));
+    return getU;
   }
 
   public boolean reachedSP(double hangle, double uangle) {
