@@ -13,18 +13,18 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
 public class LedSubsystem extends SubsystemBase {
 
-  public DigitalOutput allianceColorOutput = new DigitalOutput(0);
-  public DigitalOutput coneOrCubeColorOutput = new DigitalOutput(1);
-  public DigitalOutput blinkOutput = new DigitalOutput(2);
-  public DigitalOutput miscOutput = new DigitalOutput(3);
+  public DigitalOutput allianceColorOutput = new DigitalOutput(2);
+  public DigitalOutput gamePieceColorOutput = new DigitalOutput(3);
+  public DigitalOutput blinkOutput = new DigitalOutput(4);
+  public DigitalOutput visionLockedOutput = new DigitalOutput(5);
+  public DigitalOutput testOutput = new DigitalOutput(6);
   public ShuffleboardTab tab = Shuffleboard.getTab("Leds");
   public boolean redAlliance;
   public boolean isPurple = false;
-  public boolean isSolid = false;
-  
+  public boolean isBlinking = false;
+
   /** Creates a new LedSubsystem. */
   public LedSubsystem() {
 
@@ -35,12 +35,12 @@ public class LedSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
     SmartDashboard.putBoolean("isPurple", isPurple);
-    SmartDashboard.putBoolean("isSolid", isSolid);
+    SmartDashboard.putBoolean("isSolid", isBlinking);
 
   }
 
-  public void SetAllianceColor(){
-    if (DriverStation.getAlliance() == Alliance.Red){
+  public void SetAllianceColor() {
+    if (DriverStation.getAlliance() == Alliance.Red) {
       redAlliance = true;
     } else {
       redAlliance = false;
@@ -48,23 +48,31 @@ public class LedSubsystem extends SubsystemBase {
     allianceColorOutput.set(redAlliance);
   }
 
-  public void SetConeOrCubeColor(boolean isPurple){
-    coneOrCubeColorOutput.set(isPurple);
+  public void SetConeOrCubeColor(boolean isPurple) {
+    gamePieceColorOutput.set(!isPurple);
     this.isPurple = isPurple;
   }
 
-  public void SetBlink(boolean isSolid){
-    blinkOutput.set(isSolid);
-    this.isSolid = isSolid;
+  public void SetBlink(boolean isBlinking) {
+    blinkOutput.set(!isBlinking);
+    this.isBlinking = isBlinking;
   }
 
-  public void ToggleConeOrCubeColor(){
+  public void ToggleConeOrCubeColor() {
     SetConeOrCubeColor(!isPurple);
   }
 
-  public void ToggleBlink(){
-    SetBlink(!isSolid);
+  public void ToggleBlink() {
+    SetBlink(!isBlinking);
   }
 
+  public void SetVisionPattern(boolean  visionLocked){
+    visionLockedOutput.set(!visionLocked);
+  }
+
+  public void SetTestPattern(boolean runTest) {
+    testOutput.set(!runTest); // The test pattern runs if the signal is false; dont ask why bc idk
+                              // the freshmen code is goofy ig
+  }
 
 }
