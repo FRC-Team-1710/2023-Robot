@@ -13,88 +13,97 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
-        /* Controllers */
-        private final Joystick Dcontroller = new Joystick(0);
-        private final Joystick Mcontroller = new Joystick(1);
+    /* Controllers */
+    private final Joystick Dcontroller = new Joystick(0);
+    private final Joystick Mcontroller = new Joystick(1);
 
-        /* Drive Controls */
-        private final int translationAxis = XboxController.Axis.kLeftY.value;
-        private final int strafeAxis = XboxController.Axis.kLeftX.value;
-        private final int rotationAxis = XboxController.Axis.kRightX.value;
+    /* Drive Controls */
+    private final int translationAxis = XboxController.Axis.kLeftY.value;
+    private final int strafeAxis = XboxController.Axis.kLeftX.value;
+    private final int rotationAxis = XboxController.Axis.kRightX.value;
 
-        /* Controller Buttons */
-        // private final JoystickButton robotCentric = new JoystickButton(controller,
-        // XboxController.Button.kLeftBumper.value);
-        private final int MLSYAxis = XboxController.Axis.kLeftY.value;
-        private final int MRSYAxis = XboxController.Axis.kRightY.value;
-        private final int MRT = XboxController.Axis.kRightTrigger.value;
-        private final int MLT = XboxController.Axis.kLeftTrigger.value;
-        private final JoystickButton DstartButton = new JoystickButton(Dcontroller, XboxController.Button.kStart.value);
-        private final JoystickButton DaButton = new JoystickButton(Dcontroller, XboxController.Button.kA.value);
-        private final JoystickButton DbButton = new JoystickButton(Dcontroller, XboxController.Button.kB.value);
-        private final JoystickButton DxButton = new JoystickButton(Dcontroller, XboxController.Button.kX.value);
-        private final JoystickButton DyButton = new JoystickButton(Dcontroller, XboxController.Button.kY.value);
-        private final JoystickButton DleftBumper = new JoystickButton(Dcontroller,
-                        XboxController.Button.kLeftBumper.value);
-        private final JoystickButton DrightBumper = new JoystickButton(Dcontroller,
-                        XboxController.Button.kRightBumper.value);
-        private final JoystickButton DrightStick = new JoystickButton(Dcontroller,
-                        XboxController.Button.kRightStick.value);
-        private final JoystickButton DleftStick = new JoystickButton(Dcontroller,
-                        XboxController.Button.kLeftStick.value);
+    /* Controller Buttons */
+    // private final JoystickButton robotCentric = new JoystickButton(controller,
+    // XboxController.Button.kLeftBumper.value);
+    private final int MLSYAxis = XboxController.Axis.kLeftY.value;
+    private final int MRSYAxis = XboxController.Axis.kRightY.value;
+    private final int MRT = XboxController.Axis.kRightTrigger.value;
+    private final int MLT = XboxController.Axis.kLeftTrigger.value;
 
-        private final JoystickButton MstartButton = new JoystickButton(Mcontroller, XboxController.Button.kStart.value);
-        private final JoystickButton MaButton = new JoystickButton(Mcontroller, XboxController.Button.kA.value);
-        private final JoystickButton MbButton = new JoystickButton(Mcontroller, XboxController.Button.kB.value);
-        private final JoystickButton MxButton = new JoystickButton(Mcontroller, XboxController.Button.kX.value);
-        private final JoystickButton MyButton = new JoystickButton(Mcontroller, XboxController.Button.kY.value);
-        private final JoystickButton MleftBumper = new JoystickButton(Mcontroller,
-                        XboxController.Button.kLeftBumper.value);
-        private final JoystickButton MrightBumper = new JoystickButton(Mcontroller,
-                        XboxController.Button.kRightBumper.value);
-        private final JoystickButton MrightStick = new JoystickButton(Mcontroller,
-                        XboxController.Button.kRightStick.value);
-        private final JoystickButton MleftStick = new JoystickButton(Mcontroller,
-                        XboxController.Button.kLeftStick.value);
+    private final int DRT = XboxController.Axis.kRightTrigger.value;
+    private final JoystickButton DstartButton = new JoystickButton(Dcontroller, XboxController.Button.kStart.value);
+    private final JoystickButton DaButton = new JoystickButton(Dcontroller, XboxController.Button.kA.value);
+    private final JoystickButton DbButton = new JoystickButton(Dcontroller, XboxController.Button.kB.value);
+    private final JoystickButton DxButton = new JoystickButton(Dcontroller, XboxController.Button.kX.value);
+    private final JoystickButton DyButton = new JoystickButton(Dcontroller, XboxController.Button.kY.value);
+    private final JoystickButton DrightTrigger = new JoystickButton(Dcontroller, XboxController.Axis.kRightTrigger.value);
+    private final JoystickButton DleftBumper = new JoystickButton(Dcontroller,
+            XboxController.Button.kLeftBumper.value);
+    private final JoystickButton DrightBumper = new JoystickButton(Dcontroller,
+            XboxController.Button.kRightBumper.value);
+    private final JoystickButton DrightStick = new JoystickButton(Dcontroller,
+            XboxController.Button.kRightStick.value);
+    private final JoystickButton DleftStick = new JoystickButton(Dcontroller,
+            XboxController.Button.kLeftStick.value);
 
-        /* Subsystems */
-        private final Swerve m_SwerveSubsystem = new Swerve();
-        private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
-        private final PneumaticSubsystem m_PneumaticSubsystem = new PneumaticSubsystem();
-        private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-        private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
-        private final LedSubsystem m_LedSubsystem = new LedSubsystem();
+    private final JoystickButton MstartButton = new JoystickButton(Mcontroller, XboxController.Button.kStart.value);
+    private final JoystickButton MaButton = new JoystickButton(Mcontroller, XboxController.Button.kA.value);
+    private final JoystickButton MbButton = new JoystickButton(Mcontroller, XboxController.Button.kB.value);
+    private final JoystickButton MxButton = new JoystickButton(Mcontroller, XboxController.Button.kX.value);
+    private final JoystickButton MyButton = new JoystickButton(Mcontroller, XboxController.Button.kY.value);
+    private final JoystickButton MleftBumper = new JoystickButton(Mcontroller,
+            XboxController.Button.kLeftBumper.value);
+    private final JoystickButton MrightBumper = new JoystickButton(Mcontroller,
+            XboxController.Button.kRightBumper.value);
+    private final JoystickButton MrightStick = new JoystickButton(Mcontroller,
+            XboxController.Button.kRightStick.value);
+    private final JoystickButton MleftStick = new JoystickButton(Mcontroller,
+            XboxController.Button.kLeftStick.value);
 
-        /* Trajectories */
-        Trajectory testPath;
+    /* Subsystems */
+    private final Swerve m_SwerveSubsystem = new Swerve();
+    private final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
+    private final PneumaticSubsystem m_PneumaticSubsystem = new PneumaticSubsystem();
+    private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
+    private final LedSubsystem m_LedSubsystem = new LedSubsystem();
 
-        /**
-         * The container for the robot. Contains subsystems, OI devices, and commands.
-         */
-        public RobotContainer() {
-                m_SwerveSubsystem.setDefaultCommand(
-                                new TeleopSwerve(
-                                                m_SwerveSubsystem,
-                                                () -> -Dcontroller.getRawAxis(translationAxis),
-                                                () -> -Dcontroller.getRawAxis(strafeAxis),
-                                                () -> -Dcontroller.getRawAxis(rotationAxis) * .8,
-                                                () -> DleftStick.getAsBoolean()));
+    /* Trajectories */
+    Trajectory testPath;
 
-                m_LedSubsystem.SetAllianceColor();
+    /**
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
+    public RobotContainer() {
+        m_SwerveSubsystem.setDefaultCommand(
+                new TeleopSwerve(
+                        m_SwerveSubsystem,
+                        () -> -Dcontroller.getRawAxis(translationAxis),
+                        () -> -Dcontroller.getRawAxis(strafeAxis),
+                        () -> -Dcontroller.getRawAxis(rotationAxis) * .8,
+                        () -> DleftStick.getAsBoolean()));
 
-                m_IntakeSubsystem.setDefaultCommand(
-                                new IntakeCommand(
-                                                m_IntakeSubsystem,
-                                                () -> DrightBumper.getAsBoolean(),
-                                                () -> DleftBumper.getAsBoolean()));
+        m_LedSubsystem.SetAllianceColor();
 
-                // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
+        m_IntakeSubsystem.setDefaultCommand(
+                new IntakeCommand(
+                        m_IntakeSubsystem,
+                        () -> DrightBumper.getAsBoolean(),
+                        () -> DleftBumper.getAsBoolean()));
 
-                // Configure the button bindings
-                configureButtonBindings();
-        }
 
-        /**
+        m_ArmSubsystem.setDefaultCommand(new moveArmWithTheSticks(
+            m_ArmSubsystem,
+       () -> MLSYAxis, () -> MRSYAxis,
+       () -> MrightBumper.getAsBoolean()));
+
+        // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
+
+        // Configure the button bindings
+        configureButtonBindings();
+    }
+
+    /**
          * Use this method to define your button->command mappings. Buttons can be
          * created by
          * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -105,10 +114,14 @@ public class RobotContainer {
         private void configureButtonBindings() {
                 /* Buttons */
                 DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-                DyButton.onTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
+               // DyButton.onTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
                 DaButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 0));
                 DxButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, -1));
                 DbButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 1));
+                DrightTrigger.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
+               
+
+                
 
                 double hos = 0;
                 double uos = 0;
@@ -150,16 +163,17 @@ public class RobotContainer {
 
                 MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
                 MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0)); // stop arm
+               
         }
 
-        /**
-         * Use this to pass the autonomous command to the main {@link Robot} class.
-         *
-         * @return the command to run in autonomous
-         */
-        public Command getAutonomousCommand() {
-                // An ExampleCommand will run in autonomous
-                // return new exampleAuto(m_SwerveSubsystem, testPath);
-                return new threePtAuto(m_SwerveSubsystem, m_IntakeSubsystem);
-        }
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        // An ExampleCommand will run in autonomous
+        // return new exampleAuto(m_SwerveSubsystem, testPath);
+        return new threePtAuto(m_SwerveSubsystem, m_IntakeSubsystem);
+    }
 }
