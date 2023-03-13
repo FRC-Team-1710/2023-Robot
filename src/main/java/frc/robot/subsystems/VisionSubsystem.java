@@ -63,7 +63,6 @@ public class VisionSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("THA Y", getYDisToTag() * 39.7);
         SmartDashboard.putNumber("THA Y TWO", getXDisToTag() * Math.tan(angleToTag()));
         SmartDashboard.putNumber("angle ", angleToTag());
-
     }
 
     public boolean irisHasTarget() {

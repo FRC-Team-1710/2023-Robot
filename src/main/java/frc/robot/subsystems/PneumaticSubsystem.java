@@ -74,7 +74,7 @@ public class PneumaticSubsystem extends SubsystemBase {
   public void ToggleTwoSolenoids() {
 
     deezSolenoid.toggle();
-    nutsSolenoid.toggle();
+    
 
   }
 

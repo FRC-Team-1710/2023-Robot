@@ -29,11 +29,15 @@ public class RobotContainer {
     private final int MRSYAxis = XboxController.Axis.kRightY.value;
     private final int MRT = XboxController.Axis.kRightTrigger.value;
     private final int MLT = XboxController.Axis.kLeftTrigger.value;
+
+    private final int DRT = XboxController.Axis.kRightTrigger.value;
     private final JoystickButton DstartButton = new JoystickButton(Dcontroller, XboxController.Button.kStart.value);
     private final JoystickButton DaButton = new JoystickButton(Dcontroller, XboxController.Button.kA.value);
     private final JoystickButton DbButton = new JoystickButton(Dcontroller, XboxController.Button.kB.value);
     private final JoystickButton DxButton = new JoystickButton(Dcontroller, XboxController.Button.kX.value);
     private final JoystickButton DyButton = new JoystickButton(Dcontroller, XboxController.Button.kY.value);
+    private final JoystickButton DrightTrigger = new JoystickButton(Dcontroller,
+            XboxController.Axis.kRightTrigger.value);
     private final JoystickButton DleftBumper = new JoystickButton(Dcontroller,
             XboxController.Button.kLeftBumper.value);
     private final JoystickButton DrightBumper = new JoystickButton(Dcontroller,
@@ -77,27 +81,21 @@ public class RobotContainer {
                         m_SwerveSubsystem,
                         () -> -Dcontroller.getRawAxis(translationAxis),
                         () -> -Dcontroller.getRawAxis(strafeAxis),
-                        () -> -Dcontroller.getRawAxis(rotationAxis) * .9,
+                        () -> -Dcontroller.getRawAxis(rotationAxis) * .8,
                         () -> DleftStick.getAsBoolean()));
 
-        m_VisionSubsystem.setDefaultCommand(
-                new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem));
-
         m_LedSubsystem.SetAllianceColor();
-
-        /*
-         * m_ArmSubsystem.setDefaultCommand(
-         * new manualArm(m_ArmSubsystem,
-         * () -> Mcontroller.getRawAxis(MLSYAxis),
-         * () -> Mcontroller.getRawAxis(MRSYAxis))
-         * );
-         */
 
         m_IntakeSubsystem.setDefaultCommand(
                 new IntakeCommand(
                         m_IntakeSubsystem,
                         () -> DrightBumper.getAsBoolean(),
                         () -> DleftBumper.getAsBoolean()));
+
+        m_ArmSubsystem.setDefaultCommand(new moveArmWithTheSticks(
+                m_ArmSubsystem,
+                () -> Mcontroller.getRawAxis(MLSYAxis), () -> Mcontroller.getRawAxis(MRSYAxis),
+                () -> MrightBumper.getAsBoolean()));
 
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
@@ -116,49 +114,54 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Buttons */
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-        DaButton.onTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
-        DbButton.onTrue(new TagLineup(m_SwerveSubsystem, m_VisionSubsystem));
+         DyButton.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem,
+        m_VisionSubsystem));
+        DaButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 0));
+        DxButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, -1));
+        DbButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 1));
+       // DrightTrigger.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
 
         double hos = 0;
         double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                260, 230, 354.8, 73,
+                143.7, 225, 238.5, 63,
                 40, 30, 80, 35,
                 .3, .1, 0, .6, .25, 0,
                 .35, .1, 0, .35, .1, 0,
                 7, 10, 2, 4)); // high
 
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                260, 230, 310, 154,
+                143.7, 225, 193.7, 149,
                 25, 40, 70, 30,
                 .3, .1, 0, .6, .2, 0,
                 .25, .1, 0, .25, .1, 0,
                 7, 10, 2, 4)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                277, 233, 312, 227,
-                30, 15, 100, 15,
-                .2, .2, 0, .2, .2, 0,
-                .3, .2, 0, .4, .2, 0,
-                1, 2, 1, 2)); // intake
+                155, 233, 185, 227,
+                40, 13, 100, 10,
+                .2, .2, 0, .4, .2, 0,
+                .1, .2, 0, .3, .1, 0,
+                2, 2, 2, 2)); // intake
 
-        MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                310, 145,
+       /*  MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem,
+                193.7, 140,
                 40, 30,
                 .4, .1, 0,
                 .4, .1, 0,
                 4, 6)); // mid but no intake
-
+*/
         MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                312.75, 226.5,
-                30, 30,
-                .7, .1, 0,
-                .7, .1, 0,
+                184.7, 226,
+                60, 50,
+                .1, .1, 0,
+                .1, .1, 0,
                 .5, .5)); // goofy
 
-        MleftStick.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
+        MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0)); // stop arm
+
     }
 
     /**
