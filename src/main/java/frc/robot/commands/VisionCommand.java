@@ -30,9 +30,9 @@ public class VisionCommand extends CommandBase {
 
         YO = yo;
 
-        xPidController = new PIDController(.3, .05, 0);
-        yPidController = new PIDController(.3, .1, 0);
-        aPidController = new PIDController(.05, .001, 0);
+        xPidController = new PIDController(.8, .05, 0);
+        yPidController = new PIDController(.8, .05, 0);
+        aPidController = new PIDController(.005, .002, 0);
     }
 
     // Called when the command is initially scheduled.
@@ -46,18 +46,20 @@ public class VisionCommand extends CommandBase {
     public void execute() {
         String poseS;
         Pose2d pose;
-        if (visionSubsystem.getEstimatedGlobalPose(swerveSubsystem.getPose()).isPresent()) {
+        if (visionSubsystem.irisHasTarget()) {
             poseS = visionSubsystem.getEstimatedGlobalPose(swerveSubsystem.getPose()).get().estimatedPose.toPose2d()
                     .toString();
+                
             pose = visionSubsystem.getEstimatedGlobalPose(swerveSubsystem.getPose()).get().estimatedPose.toPose2d();
+
+            swerveSubsystem.resetOdometry(pose);
         } else {
             poseS = swerveSubsystem.getPose().toString();
             pose = swerveSubsystem.getPose();
         }
-        SmartDashboard.putString("pose", poseS);
         if (visionSubsystem.irisHasTarget()) {
             double currentX = pose.getX();
-            double currentY = pose.getY();
+            double currentY = pose.getY() -.2;
             double currentA = pose.getRotation().getDegrees();
             int tagID = visionSubsystem.getTagID();
             int xs, ys;
@@ -72,8 +74,8 @@ public class VisionCommand extends CommandBase {
                 ys = 1;
             }
 
-            double xsp = visionSubsystem.getIDX(tagID) + (1 * xs);
-            double ysp = visionSubsystem.getIDY(tagID) + (.8 * YO * ys);
+            double xsp = visionSubsystem.getIDX(tagID) + (1.1 * xs);
+            double ysp = visionSubsystem.getIDY(tagID) + (.6 * YO * ys);
 
             double vx = xPidController.calculate(currentX, xsp);
             double vy = yPidController.calculate(currentY, ysp);
@@ -85,6 +87,7 @@ public class VisionCommand extends CommandBase {
             }
 
         } else {
+pose = swerveSubsystem.getPose();
             swerveSubsystem.drive(new Translation2d(0, 0), 0, false, false);
             done = true;
         }

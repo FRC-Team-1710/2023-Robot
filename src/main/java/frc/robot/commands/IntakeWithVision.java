@@ -19,7 +19,6 @@ public class IntakeWithVision extends CommandBase {
   private final Swerve m_SwerveSub;
   private final VisionSubsystem m_VisionSubsystem;
   private final PIDController xPidController, yPidController;
-  public final Timer timer = new Timer();
 
   public IntakeWithVision(IntakeSubsystem subsystem, Swerve subsystem1, VisionSubsystem subsystem2) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,7 +37,6 @@ public class IntakeWithVision extends CommandBase {
   public void initialize() {
    // int bestPipe = m_VisionSubsystem.pipelinePanic("Sclera");
     m_VisionSubsystem.setScleraPipeline(1);
-    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,11 +46,8 @@ public class IntakeWithVision extends CommandBase {
     double yDisplacement = m_VisionSubsystem.getYOffsetGP();
     double vx = xPidController.calculate(xDisplacement, -1);
     double vy = yPidController.calculate(yDisplacement, 1);
+    
     if (yDisplacement <= 2) {
-      timer.start();
-      double time = timer.get();
-      SmartDashboard.putNumber("INTAKE TIMER", time);
-
       m_IntakeSubsystem.spin(.5);
       m_SwerveSub.drive(new Translation2d(.7, 0), vx, false, false);
 
@@ -69,15 +64,13 @@ public class IntakeWithVision extends CommandBase {
   public void end(boolean interrupted) {
     m_IntakeSubsystem.spin(0);
     m_SwerveSub.drive(new Translation2d(0, 0), 0, false, false);
-    timer.stop();
+    
   }
 
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double time = timer.get();
-    return (time > 1);
-
+return false;
   }
 }

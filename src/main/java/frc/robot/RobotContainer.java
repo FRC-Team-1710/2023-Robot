@@ -36,7 +36,8 @@ public class RobotContainer {
     private final JoystickButton DbButton = new JoystickButton(Dcontroller, XboxController.Button.kB.value);
     private final JoystickButton DxButton = new JoystickButton(Dcontroller, XboxController.Button.kX.value);
     private final JoystickButton DyButton = new JoystickButton(Dcontroller, XboxController.Button.kY.value);
-    private final JoystickButton DrightTrigger = new JoystickButton(Dcontroller, XboxController.Axis.kRightTrigger.value);
+    private final JoystickButton DrightTrigger = new JoystickButton(Dcontroller,
+            XboxController.Axis.kRightTrigger.value);
     private final JoystickButton DleftBumper = new JoystickButton(Dcontroller,
             XboxController.Button.kLeftBumper.value);
     private final JoystickButton DrightBumper = new JoystickButton(Dcontroller,
@@ -91,11 +92,10 @@ public class RobotContainer {
                         () -> DrightBumper.getAsBoolean(),
                         () -> DleftBumper.getAsBoolean()));
 
-
         m_ArmSubsystem.setDefaultCommand(new moveArmWithTheSticks(
-            m_ArmSubsystem,
-       () -> MLSYAxis, () -> MRSYAxis,
-       () -> MrightBumper.getAsBoolean()));
+                m_ArmSubsystem,
+                () -> Mcontroller.getRawAxis(MLSYAxis), () -> Mcontroller.getRawAxis(MRSYAxis),
+                () -> MrightBumper.getAsBoolean()));
 
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
@@ -104,67 +104,65 @@ public class RobotContainer {
     }
 
     /**
-         * Use this method to define your button->command mappings. Buttons can be
-         * created by
-         * instantiating a {@link GenericHID} or one of its subclasses ({@link
-         * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-         * it to a {@link
-         * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-         */
-        private void configureButtonBindings() {
-                /* Buttons */
-                DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
-               // DyButton.onTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
-                DaButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 0));
-                DxButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, -1));
-                DbButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 1));
-                DrightTrigger.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
-               
+     * Use this method to define your button->command mappings. Buttons can be
+     * created by
+     * instantiating a {@link GenericHID} or one of its subclasses ({@link
+     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+     * it to a {@link
+     * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+     */
+    private void configureButtonBindings() {
+        /* Buttons */
+        DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
+         DyButton.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem,
+        m_VisionSubsystem));
+        DaButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 0));
+        DxButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, -1));
+        DbButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 1));
+       // DrightTrigger.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem, m_VisionSubsystem));
 
-                
+        double hos = 0;
+        double uos = 0;
 
-                double hos = 0;
-                double uos = 0;
+        MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
+                143.7, 225, 238.5, 63,
+                40, 30, 80, 35,
+                .3, .1, 0, .6, .25, 0,
+                .35, .1, 0, .35, .1, 0,
+                7, 10, 2, 4)); // high
 
-                MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                                77, 230, 171.8, 68,
-                                40, 30, 80, 35,
-                                .3, .1, 0, .6, .25, 0,
-                                .35, .1, 0, .35, .1, 0,
-                                7, 10, 2, 4)); // high
+        MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
+                143.7, 225, 193.7, 149,
+                25, 40, 70, 30,
+                .3, .1, 0, .6, .2, 0,
+                .25, .1, 0, .25, .1, 0,
+                7, 10, 2, 4)); // mid
 
-                MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                                77, 230, 127, 154,
-                                25, 40, 70, 30,
-                                .3, .1, 0, .6, .2, 0,
-                                .25, .1, 0, .25, .1, 0,
-                                7, 10, 2, 4)); // mid
+        MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
+                155, 233, 185, 227,
+                40, 13, 100, 10,
+                .2, .2, 0, .4, .2, 0,
+                .1, .2, 0, .3, .1, 0,
+                2, 2, 2, 2)); // intake
 
-                MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                                94, 233, 118, 229,
-                                30, 15, 100, 15,
-                                .2, .2, 0, .2, .2, 0,
-                                .1, .2, 0, .2, .2, 0,
-                                1, 2, 1, 2)); // intake
+       /*  MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem,
+                193.7, 140,
+                40, 30,
+                .4, .1, 0,
+                .4, .1, 0,
+                4, 6)); // mid but no intake
+*/
+        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem,
+                184.7, 226,
+                60, 50,
+                .1, .1, 0,
+                .1, .1, 0,
+                .5, .5)); // goofy
 
-                MrightBumper.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                                127, 145,
-                                40, 30,
-                                .4, .1, 0,
-                                .4, .1, 0,
-                                4, 6)); // mid but no intake
+        MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
+        MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0)); // stop arm
 
-                MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                                118, 229,
-                                60, 50,
-                                .1, .1, 0,
-                                .1, .1, 0,
-                                .5, .5)); // goofy
-
-                MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
-                MstartButton.onTrue(new manualArm(m_ArmSubsystem, 0, 0)); // stop arm
-               
-        }
+    }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
