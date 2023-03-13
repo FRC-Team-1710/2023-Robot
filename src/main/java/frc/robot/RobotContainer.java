@@ -174,6 +174,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath);
-        return new threePtAuto(m_SwerveSubsystem, m_IntakeSubsystem);
+        return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem);
     }
 }

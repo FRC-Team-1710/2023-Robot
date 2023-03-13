@@ -97,7 +97,7 @@ public class threePtAuto extends SequentialCommandGroup {
                 //new WaitCommand(.1),
               //  path0,
                 new IntakeSpin(m_IntakeSubsystem, -.5),
-                new WaitCommand(.65),
+                new WaitCommand(.5),
                 new IntakeSpin(m_IntakeSubsystem, 0),
                 command,
                 path2,
