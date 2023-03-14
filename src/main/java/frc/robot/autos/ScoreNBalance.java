@@ -1,6 +1,7 @@
 package frc.robot.autos;
 
 import frc.robot.Constants;
+import frc.robot.commands.ArmSet2PtPath;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
@@ -18,6 +19,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class ScoreNBalance extends SequentialCommandGroup {
     public ScoreNBalance(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
@@ -73,8 +75,22 @@ public class ScoreNBalance extends SequentialCommandGroup {
                 new InstantCommand(() -> m_SwerveSubsystem.resetModulesToAbsolute()),
                 new InstantCommand(() -> m_SwerveSubsystem.setGyro(0)),
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(trajectory1.getInitialPose())),
-                // new ArmSet2PtPath(m_ArmSubsystem, 265, 230, 354.8, 76, 25, 40, 80, 40),
-                // new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
+                new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
+                new WaitCommand(.15),
+                new ArmSet2PtPath(m_ArmSubsystem,
+                260, 230, 354.8, 68,
+                40, 30, 80, 35,
+                .3, .1, 0, .6, .25, 0,
+                .35, .1, 0, .35, .1, 0,
+                7, 10, 2, 4),
+                new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
+                new WaitCommand(.25),
+                new ArmSet2PtPath(m_ArmSubsystem,
+                277, 233, 312, 227,
+                30, 15, 100, 15,
+                .2, .2, 0, .1, .2, 0,
+                .3, .2, 0, .5, .2, 0,
+                1, 2, 4, 4),
                 command);
     }
 }

@@ -29,6 +29,7 @@ public class VisionCommand extends CommandBase {
         visionSubsystem = m_VisionSubsystem;
 
         YO = yo;
+        done = false;
 
         xPidController = new PIDController(.8, .05, 0);
         yPidController = new PIDController(.8, .05, 0);
@@ -38,39 +39,27 @@ public class VisionCommand extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        done = false;
+        
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        String poseS;
         Pose2d pose;
         if (visionSubsystem.irisHasTarget()) {
-            poseS = visionSubsystem.getEstimatedGlobalPose(swerveSubsystem.getPose()).get().estimatedPose.toPose2d()
-                    .toString();
-                
             pose = visionSubsystem.getEstimatedGlobalPose(swerveSubsystem.getPose()).get().estimatedPose.toPose2d();
 
             swerveSubsystem.resetOdometry(pose);
-        } else {
-            poseS = swerveSubsystem.getPose().toString();
-            pose = swerveSubsystem.getPose();
-        }
-        if (visionSubsystem.irisHasTarget()) {
             double currentX = pose.getX();
-            double currentY = pose.getY() -.2;
+            double currentY = pose.getY() - .2;
             double currentA = pose.getRotation().getDegrees();
             int tagID = visionSubsystem.getTagID();
             int xs, ys;
             if (tagID > 4) {
                 xs = 1;
-            } else {
-                xs = -1;
-            }
-            if (tagID > 4) {
                 ys = -1;
             } else {
+                xs = -1;
                 ys = 1;
             }
 
@@ -87,7 +76,7 @@ public class VisionCommand extends CommandBase {
             }
 
         } else {
-pose = swerveSubsystem.getPose();
+            pose = swerveSubsystem.getPose();
             swerveSubsystem.drive(new Translation2d(0, 0), 0, false, false);
             done = true;
         }
@@ -103,10 +92,6 @@ pose = swerveSubsystem.getPose();
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (done) {
-            return true;
-        } else {
-            return false;
-        }
+        return done;
     }
 }
