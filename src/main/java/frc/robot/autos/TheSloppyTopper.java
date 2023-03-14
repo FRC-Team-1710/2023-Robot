@@ -31,8 +31,8 @@ public class TheSloppyTopper extends SequentialCommandGroup {
     PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("The Sloppy Topper", new PathConstraints(2, 2));
     
 
-    double rotP = 1.25;
-    double rotD = 0.06;
+    double rotP = 1.45;
+    double rotD = 0.08;
     double driveP = 1.5;
     double driveD = 0.02;
 
@@ -87,7 +87,7 @@ public class TheSloppyTopper extends SequentialCommandGroup {
         40, 13, 100, 10,
         .2, .2, 0, .4, .2, 0,
         .1, .2, 0, .3, .1, 0,
-        2, 2, 2, 2),
+        4, 4, 2, 2),
 
         command,
         
@@ -100,7 +100,7 @@ public class TheSloppyTopper extends SequentialCommandGroup {
         40, 13, 100, 10,
         .2, .2, 0, .4, .2, 0,
         .1, .2, 0, .3, .1, 0,
-        2, 2, 2, 2)
+        4, 4, 2, 2)
         );
 
     
