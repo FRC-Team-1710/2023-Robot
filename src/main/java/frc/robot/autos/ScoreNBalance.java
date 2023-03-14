@@ -2,6 +2,7 @@ package frc.robot.autos;
 
 import frc.robot.Constants;
 import frc.robot.commands.ArmSet2PtPath;
+import frc.robot.commands.IntakeSpin;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
@@ -27,14 +28,14 @@ public class ScoreNBalance extends SequentialCommandGroup {
 
         // PathPlannerTrajectory trajectory0 = PathPlanner.loadPath("Score 2 pt 1-1",
         // new PathConstraints(2, 2));
-        PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("TopScorer1", new PathConstraints(2, 2));
+        PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("TopScorer1", new PathConstraints(2.5, 2));
         // PathPlannerTrajectory trajectory2 = PathPlanner.loadPath("Score 2 pt 2", new
         // PathConstraints(3, 2.5));
         // PathPlannerTrajectory trajectory3 = PathPlanner.loadPath("Score 2 pt 3", new
         // PathConstraints(3, 2.5));
 
-        double rotP = 1.25;
-        double rotD = 0.06;
+        double rotP = 1.45;
+        double rotD = 0.08;
         double driveP = 1.5;
         double driveD = 0.02;
 
@@ -51,8 +52,14 @@ public class ScoreNBalance extends SequentialCommandGroup {
          * m_SwerveSubsystem);
          */
 
+        /*
+         * HashMap<String, Command> eventMap = new HashMap<>();
+         * eventMap.put("Intake", new InstantCommand(() -> m_IntakeSubsystem.spin(.5)));
+         * eventMap.put("Intook", new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
+         */
+
         HashMap<String, Command> eventMap = new HashMap<>();
-        eventMap.put("Intake", new InstantCommand(() -> m_IntakeSubsystem.spin(.5)));
+        eventMap.put("Intake", new IntakeSpin(m_IntakeSubsystem, 0.5));
         eventMap.put("Intook", new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
 
         PPSwerveControllerCommand path1 = new PPSwerveControllerCommand(
@@ -76,21 +83,24 @@ public class ScoreNBalance extends SequentialCommandGroup {
                 new InstantCommand(() -> m_SwerveSubsystem.setGyro(0)),
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(trajectory1.getInitialPose())),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
-                new WaitCommand(.15),
+                new WaitCommand(.1),
                 new ArmSet2PtPath(m_ArmSubsystem,
-                260, 230, 354.8, 68,
-                40, 30, 80, 35,
-                .3, .1, 0, .6, .25, 0,
-                .35, .1, 0, .35, .1, 0,
-                7, 10, 2, 4),
+                        143.7, 225, 238.5, 63,
+                        40, 30, 80, 35,
+                        .3, .1, 0, .6, .25, 0,
+                        .35, .1, 0, .35, .1, 0,
+                        7, 10, 2, 4),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
-                new WaitCommand(.25),
-                new ArmSet2PtPath(m_ArmSubsystem,
-                277, 233, 312, 227,
-                30, 15, 100, 15,
-                .2, .2, 0, .1, .2, 0,
-                .3, .2, 0, .5, .2, 0,
-                1, 2, 4, 4),
-                command);
+                //new WaitCommand(.1),
+                new ScoreNBalance2(m_ArmSubsystem, m_SwerveSubsystem, command)
+        /*
+          new ArmSet2PtPath(m_ArmSubsystem,
+          155, 233, 185, 227,
+          40*.85, 13*.85, 100, 10,
+          .25, .2, 0, .4, .2, 0,
+          .1, .2, 0, .3, .1, 0,
+          4, 4, 2, 2),
+          command
+         */);
     }
 }
