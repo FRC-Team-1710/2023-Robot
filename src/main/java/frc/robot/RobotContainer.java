@@ -147,11 +147,11 @@ public class RobotContainer {
                 4, 4, 2, 2)); // intake
 
         MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                184.7, 226,
+                185, 225,
                 60, 50,
                 .1, .1, 0,
                 .1, .1, 0,
-                .5, .5)); // goofy
+                2, 2)); // goofy
 
         MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new stopArm(m_ArmSubsystem)); // stop arm
@@ -166,10 +166,10 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath)
-        // return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem,
-        // m_ArmSubsystem, m_PneumaticSubsystem);
+         return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem,
+         m_ArmSubsystem, m_PneumaticSubsystem);
 
-        return new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem,
-                m_VisionSubsystem);
+        //return new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem,
+         //       m_VisionSubsystem);
     }
 }

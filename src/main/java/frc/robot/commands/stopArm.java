@@ -8,8 +8,9 @@ import frc.robot.subsystems.ArmSubsystem;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
-public class stopArm extends CommandBase {
+public class stopArm extends InstantCommand {
   /** Creates a new manualArm. */
   private final ArmSubsystem m_subsystem;
 
