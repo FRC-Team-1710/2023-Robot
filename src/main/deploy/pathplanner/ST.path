@@ -1,0 +1,118 @@
+{
+  "waypoints": [
+    {
+      "anchorPoint": {
+        "x": 1.75,
+        "y": 0.4981530534527509
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.750000000000001,
+        "y": 0.4981530534527509
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 3.693965130123651,
+        "y": 0.8
+      },
+      "prevControl": {
+        "x": 3.1982814428395243,
+        "y": 0.6389426069000346
+      },
+      "nextControl": {
+        "x": 4.189648817407777,
+        "y": 0.9610573930999654
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.394859301194377,
+        "y": 0.9312810889891021
+      },
+      "prevControl": {
+        "x": 5.776189495290696,
+        "y": 0.9312810889891021
+      },
+      "nextControl": {
+        "x": 7.0135291070980585,
+        "y": 0.9312810889891021
+      },
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 7.4,
+        "y": 0.93
+      },
+      "prevControl": {
+        "x": 6.4,
+        "y": 0.93
+      },
+      "nextControl": null,
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    }
+  ],
+  "markers": [
+    {
+      "position": 2.0,
+      "names": [
+        "Intake"
+      ]
+    },
+    {
+      "position": 3.0,
+      "names": [
+        "Intook"
+      ]
+    },
+    {
+      "position": 0.24545454545454554,
+      "names": [
+        "Arm Down"
+      ]
+    }
+  ]
+}
