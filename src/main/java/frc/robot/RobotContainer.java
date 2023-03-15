@@ -165,6 +165,5 @@ public class RobotContainer {
         // return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem,
         // m_ArmSubsystem, m_PneumaticSubsystem);
 
-        return commandChooser.getSelected();
     }
 }
