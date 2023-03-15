@@ -49,12 +49,12 @@ public class LedSubsystem extends SubsystemBase {
   }
 
   public void SetConeOrCubeColor(boolean isPurple) {
-    gamePieceColorOutput.set(!isPurple);
+    gamePieceColorOutput.set(isPurple);
     this.isPurple = isPurple;
   }
 
   public void SetBlink(boolean isBlinking) {
-    blinkOutput.set(!isBlinking);
+    blinkOutput.set(isBlinking);
     this.isBlinking = isBlinking;
   }
 
@@ -66,13 +66,12 @@ public class LedSubsystem extends SubsystemBase {
     SetBlink(!isBlinking);
   }
 
-  public void SetVisionPattern(boolean  visionLocked){
-    visionLockedOutput.set(!visionLocked);
+  public void SetVisionPattern(boolean visionLocked){
+    visionLockedOutput.set(visionLocked);
   }
 
   public void SetTestPattern(boolean runTest) {
-    testOutput.set(!runTest); // The test pattern runs if the signal is false; dont ask why bc idk
-                              // the freshmen code is goofy ig
+    testOutput.set(runTest); 
   }
 
 }
