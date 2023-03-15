@@ -167,9 +167,9 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath)
-         //return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem,
-         //m_ArmSubsystem, m_PneumaticSubsystem);
+         return new KepychKapper(m_SwerveSubsystem, m_IntakeSubsystem,
+         m_ArmSubsystem, m_PneumaticSubsystem);
 
-        return new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem, m_VisionSubsystem);
+        //return new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem, m_VisionSubsystem);
     }
 }
