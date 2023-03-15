@@ -3,7 +3,6 @@ package frc.robot.autos;
 import frc.robot.Constants;
 import frc.robot.commands.ArmSet2PtPath;
 import frc.robot.commands.IntakeSpin;
-import frc.robot.commands.IntakeWithVision;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
