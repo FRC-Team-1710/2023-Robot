@@ -11,11 +11,11 @@ import frc.robot.subsystems.VisionSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class UpdateOdometry extends InstantCommand {
+public class the28thAmmendments extends InstantCommand {
 
   private Swerve swerveSubsystem;
   private VisionSubsystem visionSubsystem;
-  public UpdateOdometry(VisionSubsystem m_VisionSubsystem, Swerve m_SwerveSubsystem) {
+  public the28thAmmendments(VisionSubsystem m_VisionSubsystem, Swerve m_SwerveSubsystem) {
     addRequirements(m_VisionSubsystem);
 
     swerveSubsystem = m_SwerveSubsystem;

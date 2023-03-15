@@ -22,20 +22,20 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class ScoreNBalance extends SequentialCommandGroup {
-    public ScoreNBalance(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
+public class KepychKapper extends SequentialCommandGroup {
+    public KepychKapper(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
             PneumaticSubsystem m_PneumaticSubsystem) {
 
         // PathPlannerTrajectory trajectory0 = PathPlanner.loadPath("Score 2 pt 1-1",
         // new PathConstraints(2, 2));
-        PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("TopScorer1", new PathConstraints(2.5, 2));
+        PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("KepychKapper", new PathConstraints(2, 2));
         // PathPlannerTrajectory trajectory2 = PathPlanner.loadPath("Score 2 pt 2", new
         // PathConstraints(3, 2.5));
         // PathPlannerTrajectory trajectory3 = PathPlanner.loadPath("Score 2 pt 3", new
         // PathConstraints(3, 2.5));
 
-        double rotP = 1.45;
-        double rotD = 0.08;
+        double rotP = 1.25;
+        double rotD = 0.06;
         double driveP = 1.5;
         double driveD = 0.02;
 
@@ -92,7 +92,7 @@ public class ScoreNBalance extends SequentialCommandGroup {
                         7, 10, 2, 4),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
                 //new WaitCommand(.1),
-                new ScoreNBalance2(m_ArmSubsystem, m_SwerveSubsystem, command)
+                new KepychKapper2(m_ArmSubsystem, m_SwerveSubsystem, command)
         /*
           new ArmSet2PtPath(m_ArmSubsystem,
           155, 233, 185, 227,

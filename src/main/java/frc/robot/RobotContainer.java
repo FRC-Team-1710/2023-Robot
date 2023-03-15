@@ -116,9 +116,9 @@ public class RobotContainer {
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
         DyButton.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem,
                 m_VisionSubsystem));
-        DaButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 0));
-        DxButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, -1));
-        DbButton.onTrue(new VisionCommand(m_VisionSubsystem, m_SwerveSubsystem, 1));
+        DaButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 0));
+        DxButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, -1));
+        DbButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 1));
         // DrightTrigger.whileTrue(new IntakeWithVision(m_IntakeSubsystem,
         // m_SwerveSubsystem, m_VisionSubsystem));
 
@@ -126,11 +126,11 @@ public class RobotContainer {
         double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                143.7, 225, 238.5, 63,
-                40, 30, 80, 15,
+                138, 225, 238.5, 63,
+                40, 30, 70, 10,
                 .3, .1, 0, .6, .25, 0,
                 .35, .1, 0, .35, .1, 0,
-                7, 10, 2, 4)); // high
+                5, 7, 2, 4)); // high
 
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
                 143.7, 225, 193.7, 149,
@@ -145,16 +145,17 @@ public class RobotContainer {
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
                 4, 4, 2, 2)); // intake
-
+                
         MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                185, 225,
-                60, 50,
+                178
+                , 224.7,
+                40, 13,
                 .1, .1, 0,
-                .1, .1, 0,
-                2, 2)); // goofy
+                .3, .1, 0,
+                2, 3)); // test
 
         MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
-        MstartButton.onTrue(new stopArm(m_ArmSubsystem)); // stop arm
+        MstartButton.onTrue(new stopTheArmTweakin(m_ArmSubsystem)); // stop arm
 
     }
 
@@ -166,10 +167,9 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath)
-         return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem,
-         m_ArmSubsystem, m_PneumaticSubsystem);
+         //return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem,
+         //m_ArmSubsystem, m_PneumaticSubsystem);
 
-        //return new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem,
-         //       m_VisionSubsystem);
+        return new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem, m_VisionSubsystem);
     }
 }

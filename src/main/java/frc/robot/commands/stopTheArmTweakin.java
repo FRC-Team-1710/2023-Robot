@@ -10,11 +10,11 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
-public class stopArm extends InstantCommand {
+public class stopTheArmTweakin extends InstantCommand {
   /** Creates a new manualArm. */
   private final ArmSubsystem m_subsystem;
 
-  public stopArm(ArmSubsystem subsystem) {
+  public stopTheArmTweakin(ArmSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_subsystem = subsystem;
     addRequirements(subsystem);

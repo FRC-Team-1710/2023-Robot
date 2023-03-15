@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class VisionCommand extends CommandBase {
+public class TheSightChallenge extends CommandBase {
 
     private Swerve swerveSubsystem;
     private VisionSubsystem visionSubsystem;
@@ -21,7 +21,7 @@ public class VisionCommand extends CommandBase {
     public boolean done;
 
     /** Creates a new VisionCommand. */
-    public VisionCommand(VisionSubsystem m_VisionSubsystem, Swerve m_SwerveSubsystem, double yo) {
+    public TheSightChallenge(VisionSubsystem m_VisionSubsystem, Swerve m_SwerveSubsystem, double yo) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_VisionSubsystem);
 
