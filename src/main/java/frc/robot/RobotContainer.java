@@ -90,10 +90,12 @@ public class RobotContainer {
 
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
-        commandChooser.setDefaultOption("Kapper",
+        commandChooser.setDefaultOption("Kapper (Top)",
                 new KepychKapper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
-        commandChooser.addOption("Topper", new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem,
+        commandChooser.addOption("Topper (Bot)", new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem,
                 m_PneumaticSubsystem, m_VisionSubsystem));
+        commandChooser.addOption("Mid", new HighScore(m_SwerveSubsystem, m_IntakeSubsystem, 
+                m_ArmSubsystem, m_PneumaticSubsystem));
         SmartDashboard.putData("Auto Selection", commandChooser);
 
         // Configure the button bindings
