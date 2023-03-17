@@ -7,6 +7,8 @@ package frc.robot.autos;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmSet2PtPath;
 import frc.robot.subsystems.ArmSubsystem;
 
@@ -19,12 +21,11 @@ public class TheSloppyTopper3 extends ParallelCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new ArmSet2PtPath(m_ArmSubsystem,
-                        155, 233, 185, 227,
-                        30, 10, 40, 4,
-                        .2, .2, 0, .4, .2, 0,
-                        .1, .2, 0, .3, .1, 0,
-                        4, 4, 2, 2),
-                command);
+                command.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
+                155, 197, 185, 191,
+                30, 10, 40, 4,
+                .2, .2, 0, .4, .2, 0,
+                .1, .2, 0, .3, .1, 0,
+                4, 4, 2, 2))); 
     }
 }

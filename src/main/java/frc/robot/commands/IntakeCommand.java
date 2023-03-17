@@ -41,7 +41,7 @@ public class IntakeCommand extends CommandBase {
       intake.spin(.5);
       LED.SetVisionPattern(true);
     } else if (leftPressed.getAsBoolean()){
-      intake.spin(-.5);
+      intake.spin(-.75);
       LED.SetVisionPattern(true);
 
     } else {

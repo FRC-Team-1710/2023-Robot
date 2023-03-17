@@ -100,7 +100,7 @@ public class KepychKapper extends SequentialCommandGroup {
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
                 new WaitCommand(.1),
                 new ArmSet2PtPath(m_ArmSubsystem,
-                        143.7, 225, 238.5, 63,
+                        143.7, 189, 238.5, 27,
                         40, 30, 80, 35,
                         .3, .1, 0, .6, .25, 0,
                         .35, .1, 0, .35, .1, 0,

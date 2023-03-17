@@ -17,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
   public static CANSparkMax hm1, hm2, hm3, hm4, um1, um2;
   public static DutyCycleEncoder humerus_encoder, ulna_encoder;
   public static PIDController hPID, uPID;
+  private Boolean ENCFAIL;
   public double getH, getU;
 
   final double hkP = 0.25;
@@ -68,6 +69,13 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("hum speed", hm1.get());
     SmartDashboard.putNumber("uln speed", um1.get());
 
+    if (getHPos() == 0 || getUPos() == 0){
+     ENCFAIL = true;
+    }else{
+ENCFAIL = false;
+    }
+    SmartDashboard.putBoolean("ENCODER FAILURE", ENCFAIL);
+
   }
 
   public void setAngles(double hangle, double uangle, double hdf, double udf, double hp, double hi, double hd,
@@ -75,8 +83,16 @@ public class ArmSubsystem extends SubsystemBase {
     // hangle = humerus angle, uangle = ulna angle, hdf = humerus division factor,
     // udf = ulna division factor
 
-    hPID.setPID(hp, hi, hd);
-    uPID.setPID(up, ui, ud);
+    if (getHPos() == 0 || getUPos() == 0) {
+      hPID.setPID(0, 0, 0);
+      uPID.setPID(0, 0, 0);
+      
+    } else {
+      hPID.setPID(hp, hi, hd);
+      uPID.setPID(up, ui, ud);
+    }
+
+    
 
     hm1.set(-1 * (hPID.calculate(getHPos(), hangle) / (hdf)));
     um1.set(1 * (uPID.calculate(getUPos(), uangle) / (udf)));
@@ -96,7 +112,8 @@ public class ArmSubsystem extends SubsystemBase {
     hm1.set(hspeed / 5);
     um1.set(uspeed / 2);
   }
-  public void stopArm(){
+
+  public void stopArm() {
     hm1.set(0);
     um1.set(0);
   }

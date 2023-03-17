@@ -7,9 +7,12 @@ package frc.robot.autos;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmSet2PtPath;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.Swerve;
+
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -20,12 +23,11 @@ public class KepychKapper2 extends ParallelCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new ArmSet2PtPath(m_ArmSubsystem,
-                        155, 233, 185, 227,
-                        40 * .85, 13 * .85, 100 * .75, 10 * .75,
-                        .25, .2, 0, .4, .2, 0,
-                        .1, .2, 0, .3, .1, 0,
-                        4, 4, 2, 2),
-                command);
+                command.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
+                155, 197, 185, 191,
+                40 * .85, 13 * .85, 100 * .75, 10 * .75,
+                .25, .2, 0, .4, .2, 0,
+                .1, .2, 0, .3, .1, 0,
+                4, 4, 2, 2))); 
     }
 }

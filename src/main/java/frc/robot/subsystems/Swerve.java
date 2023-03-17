@@ -18,12 +18,14 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     private Field2d m_field = new Field2d();
     public boolean odometryDisabled = false;
+    
 
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID);

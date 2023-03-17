@@ -43,11 +43,11 @@ public class TheSloppyTopper extends SequentialCommandGroup {
 
         if (DriverStation.getAlliance() == Alliance.Red){
                 trajectory1 = PathPlanner.loadPath("ST Red", new PathConstraints(1.5, 1.5));
-                trajectory2 = PathPlanner.loadPath("ST2 Red", new PathConstraints(2, 2));
+                trajectory2 = PathPlanner.loadPath("ST2 Red", new PathConstraints(2.5, 2.5));
                 initialPose = new Pose2d(14.73, .5, new Rotation2d(0));
         } else {
                 trajectory1 = PathPlanner.loadPath("ST", new PathConstraints(1.5, 1.5));
-                trajectory2 = PathPlanner.loadPath("ST2", new PathConstraints(2, 2));
+                trajectory2 = PathPlanner.loadPath("ST2", new PathConstraints(2.5, 2.5));
                 initialPose = trajectory1.getInitialPose();
         }
 
@@ -57,7 +57,7 @@ public class TheSloppyTopper extends SequentialCommandGroup {
 
         HashMap<String, Command> eventMap2 = new HashMap<>();
         eventMap2.put("Arm Up", new ArmSet2PtPath(m_ArmSubsystem,
-                143.7, 225, 238.5, 63,
+                143.7, 189, 238.5, 27,
                 40, 30, 80, 35,
                 .3, .1, 0, .6, .25, 0,
                 .35, .1, 0, .35, .1, 0,
@@ -100,7 +100,7 @@ public class TheSloppyTopper extends SequentialCommandGroup {
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(initialPose)),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
                 new ArmSet2PtPath(m_ArmSubsystem,
-                        143.7, 225, 238.5, 63,
+                        143.7, 189, 238.5, 27,
                         40, 30, 80, 35,
                         .3, .1, 0, .6, .25, 0,
                         .35, .1, 0, .35, .1, 0,
@@ -112,12 +112,15 @@ public class TheSloppyTopper extends SequentialCommandGroup {
                 command2,
                 new WaitCommand(.25),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
-                new ArmSet2PtPath(m_ArmSubsystem,
+               /*  new ArmSet2PtPath(m_ArmSubsystem,
                         155, 233, 185, 227,
                         40, 13, 100, 10,
                         .2, .2, 0, .4, .2, 0,
                         .1, .2, 0, .3, .1, 0,
-                        4, 4, 2, 2));
+                        4, 4, 2, 2),*/
+                        new IntakeSpin(m_IntakeSubsystem, -0.5),
+                        new WaitCommand(2),
+                        new IntakeSpin(m_IntakeSubsystem, 0));
 
     }
 }
