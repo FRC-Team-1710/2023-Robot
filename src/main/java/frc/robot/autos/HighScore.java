@@ -29,9 +29,10 @@ public class HighScore extends SequentialCommandGroup {
      * Creates a new HighScore.
      * 
      * @param m_ArmSubsystem
-     * @param m_PneumaticSubsystem 
+     * @param m_PneumaticSubsystem
      */
-    public HighScore(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem, PneumaticSubsystem m_PneumaticSubsystem) {
+    public HighScore(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
+            PneumaticSubsystem m_PneumaticSubsystem) {
 
         PathPlannerTrajectory trajectory0;
         Pose2d initialPose;
@@ -75,8 +76,8 @@ public class HighScore extends SequentialCommandGroup {
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
                 new WaitCommand(.25),
                 path0.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
-                        155, 180, 185, 180,
-                        40, 13, 60, 6,
+                        146, 180, 185, 178,
+                        40, 13, 50, 5,
                         .2, .2, 0, .4, .2, 0,
                         .1, .2, 0, .3, .1, 0,
                         4, 4, 2, 2)));

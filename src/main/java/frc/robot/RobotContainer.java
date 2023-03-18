@@ -125,32 +125,32 @@ public class RobotContainer {
         // double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-        135, 177, 235, 23,
-        40, 30, 80, 35,
+        133, 170, 233, 20,
+        40, 30, 100, 40,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,
         7, 10, 2, 4)); // high
 
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                143.7, 177, 193.7, 105,
-                25, 40, 70, 15,
+                143.7, 177, 183, 93,
+                40, 30, 70, 15,
                 .3, .1, 0, .6, .2, 0,
                 .25, .1, 0, .25, .1, 0,
-                7, 10, 2, 4)); // mid
+                7, 10, 4, 5)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                155, 180, 185, 180,
-                40, 13, 60, 6,
+                146, 180, 185, 178,
+                40, 13, 50, 5,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
                 4, 4, 2, 2)); // intake
 
-        /*MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                178, 224.7,
-                40, 13,
-                .1, .1, 0,
-                .3, .1, 0,
-                2, 3)); // test*/
+        MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
+        137, 173, 233, 15,
+        40, 30, 80, 35,
+        .3, .1, 0, .6, .25, 0,
+        .35, .1, 0, .35, .1, 0,
+        7, 10, 2, 4)); // test
 
         MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new stopTheArmTweakin(m_ArmSubsystem)); // stop arm

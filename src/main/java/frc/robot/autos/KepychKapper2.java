@@ -24,9 +24,9 @@ public class KepychKapper2 extends ParallelCommandGroup {
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
                 command.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
-                155, 197, 185, 191,
-                40 * .85, 13 * .85, 100 * .75, 10 * .75,
-                .25, .2, 0, .4, .2, 0,
+                146, 180, 185, 178,
+                40, 13, 50, 5,
+                .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
                 4, 4, 2, 2))); 
     }
