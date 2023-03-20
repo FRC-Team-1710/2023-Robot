@@ -25,15 +25,15 @@
     {
       "anchorPoint": {
         "x": 5.1,
-        "y": 0.95
+        "y": 0.8
       },
       "prevControl": {
         "x": 6.31659396817968,
-        "y": 0.95
+        "y": 0.8
       },
       "nextControl": {
         "x": 4.961904792338524,
-        "y": 0.95
+        "y": 0.8
       },
       "holonomicAngle": 180.0,
       "isReversal": false,

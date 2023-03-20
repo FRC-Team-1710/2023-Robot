@@ -57,11 +57,11 @@ public class TheSloppyTopper extends SequentialCommandGroup {
 
         HashMap<String, Command> eventMap2 = new HashMap<>();
         eventMap2.put("Arm Up", new ArmSet2PtPath(m_ArmSubsystem,
-                143.7, 189, 238.5, 27,
-                40, 30, 80, 35,
-                .3, .1, 0, .6, .25, 0,
-                .35, .1, 0, .35, .1, 0,
-                7, 10, 2, 4));
+        137, 173, 241, 15,
+        40, 30, 80, 35,
+        .3, .1, 0, .6, .25, 0,
+        .35, .1, 0, .35, .1, 0,
+        7, 10, 2, 4));
 
         PPSwerveControllerCommand path1 = new PPSwerveControllerCommand(
                 trajectory1,
@@ -100,7 +100,7 @@ public class TheSloppyTopper extends SequentialCommandGroup {
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(initialPose)),
                 new InstantCommand(() -> m_PneumaticSubsystem.SetTwoSolenoidsForward()),
                 new ArmSet2PtPath(m_ArmSubsystem,
-        135, 177, 233, 18,
+        137, 173, 233, 19,
         40, 30, 80, 35,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,

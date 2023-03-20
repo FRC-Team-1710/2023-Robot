@@ -125,7 +125,7 @@ public class RobotContainer {
         // double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-        133, 170, 233, 20,
+        133, 170, 233, 23,
         40, 30, 100, 40,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,
