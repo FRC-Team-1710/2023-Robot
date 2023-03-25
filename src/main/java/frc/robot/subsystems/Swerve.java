@@ -14,6 +14,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +27,7 @@ public class Swerve extends SubsystemBase {
     public Pigeon2 gyro;
     private Field2d m_field = new Field2d();
     public boolean odometryDisabled = false;
+    ShuffleboardTab drivetrainTab;
     
 
     public Swerve() {
@@ -49,6 +52,7 @@ public class Swerve extends SubsystemBase {
 
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
         SmartDashboard.putData("field", m_field);
+        drivetrainTab= Shuffleboard.getTab("Drivetrain");
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
@@ -109,6 +113,7 @@ public class Swerve extends SubsystemBase {
 
     public void zeroGyro() {
         gyro.setYaw(0);
+        gyro.configMountPosePitch(1.27);
     }
 
     public void setGyro(double angle) {
@@ -132,11 +137,17 @@ public class Swerve extends SubsystemBase {
         swerveOdometry.update(getYaw(), getModulePositions());
         // }
         SmartDashboard.putNumber("gyro", getYaw().getDegrees());
+        SmartDashboard.putNumber("gyro pitch", gyro.getPitch());
 
         for (SwerveModule mod : mSwerveMods) {
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+            //drivetrainTab.add("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
+            //drivetrainTab.add("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+            //drivetrainTab.add("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+
+
+            //SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+            //SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
+            //SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
         }
 
         m_field.setRobotPose(getPose());

@@ -108,7 +108,13 @@ public class KepychKapper extends SequentialCommandGroup {
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
                 //new WaitCommand(.1),
                 //path1
-                new KepychKapper2(m_ArmSubsystem, m_SwerveSubsystem, command)
+                command.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
+                146, 180, 185, 178,
+                40, 13, 50, 5,
+                .2, .2, 0, .4, .2, 0,
+                .1, .2, 0, .3, .1, 0,
+                4, 4, 2, 2))
+                //new KepychKapper2(m_ArmSubsystem, m_SwerveSubsystem, command)
         /*
           new ArmSet2PtPath(m_ArmSubsystem,
           155, 233, 185, 227,

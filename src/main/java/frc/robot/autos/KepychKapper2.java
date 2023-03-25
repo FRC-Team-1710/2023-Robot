@@ -7,8 +7,6 @@ package frc.robot.autos;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmSet2PtPath;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.Swerve;

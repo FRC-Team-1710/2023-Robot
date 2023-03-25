@@ -115,6 +115,7 @@ public class RobotContainer {
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
         DyButton.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem,
                 m_VisionSubsystem));
+        DxButton.whileTrue(new autoBalance(m_SwerveSubsystem));
         //DaButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 0));
         //DxButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, -1));
         //DbButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 1));
