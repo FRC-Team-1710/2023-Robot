@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.VisionSubsystem;
@@ -15,6 +16,7 @@ public class the28thAmmendments extends InstantCommand {
 
   private Swerve swerveSubsystem;
   private VisionSubsystem visionSubsystem;
+  private Pose2d pose;
   public the28thAmmendments(VisionSubsystem m_VisionSubsystem, Swerve m_SwerveSubsystem) {
     addRequirements(m_VisionSubsystem);
 
@@ -27,7 +29,10 @@ public class the28thAmmendments extends InstantCommand {
   @Override
   public void initialize() {
     if(visionSubsystem.irisHasTarget()){
-      swerveSubsystem.resetOdometry(visionSubsystem.getEstimatedGlobalPose(swerveSubsystem.getPose()).get().estimatedPose.toPose2d());
+      pose = visionSubsystem.getEstimatedGlobalPose(swerveSubsystem.getPose()).get().estimatedPose.toPose2d();
+    } else{
+      pose = swerveSubsystem.getPose();
     }
+    swerveSubsystem.resetOdometry(pose);
   }
 }
