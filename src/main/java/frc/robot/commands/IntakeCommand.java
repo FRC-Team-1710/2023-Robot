@@ -13,12 +13,11 @@ import frc.robot.subsystems.LedSubsystem;
 public class IntakeCommand extends CommandBase {
 
   IntakeSubsystem intake;
-  BooleanSupplier rightPressed;
-  BooleanSupplier leftPressed;
+  BooleanSupplier rightPressed, leftPressed,rightTPressed, leftTPressed, Shoot;
   LedSubsystem LED;
 
   /** Creates a new IntakeCommand. */
-  public IntakeCommand(IntakeSubsystem intakeSubsystem, BooleanSupplier rBumper, BooleanSupplier lBumper, LedSubsystem ledSubsystem) {
+  public IntakeCommand(IntakeSubsystem intakeSubsystem, BooleanSupplier rBumper, BooleanSupplier lBumper, BooleanSupplier rTrigger, BooleanSupplier shoot, LedSubsystem ledSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = intakeSubsystem;
     addRequirements(intakeSubsystem);
@@ -26,6 +25,8 @@ public class IntakeCommand extends CommandBase {
     LED = ledSubsystem;
     rightPressed = rBumper;
     leftPressed = lBumper;
+    rightTPressed = rTrigger;
+    Shoot = shoot;
   }
 
   // Called when the command is initially scheduled.
@@ -44,7 +45,14 @@ public class IntakeCommand extends CommandBase {
       intake.spin(-.5);
       LED.SetVisionPattern(true);
 
-    } else {
+    } else if (rightTPressed.getAsBoolean()){
+intake.spinInside(.5);
+    }
+    else if(Shoot.getAsBoolean()){
+      intake.spinInside(-1);
+    }
+    
+    else {
       intake.spin(0);
       LED.SetVisionPattern(false);
     }

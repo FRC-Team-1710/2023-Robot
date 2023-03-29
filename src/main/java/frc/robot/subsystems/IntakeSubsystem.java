@@ -87,7 +87,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void spin(double speed) {
     thruIntake.set(TalonFXControlMode.PercentOutput, speed);
-    overIntake.set(TalonFXControlMode.PercentOutput, speed);
+    if (!up){
+      overIntake.set(TalonFXControlMode.PercentOutput, speed);
+    }
       if (speed > 0 && up){
         jointR.set(TalonFXControlMode.Position, 8700);
         jointL.set(TalonFXControlMode.Position, 8900);
@@ -101,5 +103,9 @@ public class IntakeSubsystem extends SubsystemBase {
         jointL.set(TalonFXControlMode.Position, -300);
         up = true;
       }
+    }
+
+    public void spinInside(double speed){
+      thruIntake.set(TalonFXControlMode.PercentOutput, speed);
     }
 }

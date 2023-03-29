@@ -57,8 +57,8 @@ public class ArmSubsystem extends SubsystemBase {
     um2.setIdleMode(IdleMode.kBrake);
 
     hm2.follow(hm1, false);
-    hm3.follow(hm1, true);
-    hm4.follow(hm1, true);
+    hm3.follow(hm1, false);
+    hm4.follow(hm1, false);
     um2.follow(um1, false);
   }
 
@@ -94,7 +94,7 @@ ENCFAIL = false;
 
     
 
-    hm1.set(-1 * (hPID.calculate(getHPos(), hangle) / (hdf)));
+    hm1.set(1 * (hPID.calculate(getHPos(), hangle) / (hdf)));
     um1.set(1 * (uPID.calculate(getUPos(), uangle) / (udf)));
   }
 

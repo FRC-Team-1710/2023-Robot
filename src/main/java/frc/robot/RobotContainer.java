@@ -38,6 +38,7 @@ public class RobotContainer {
     private final JoystickButton DleftBumper = new JoystickButton(Dcontroller, XboxController.Button.kLeftBumper.value);
     private final JoystickButton DrightBumper = new JoystickButton(Dcontroller, XboxController.Button.kRightBumper.value);
     private final JoystickButton DleftStick = new JoystickButton(Dcontroller, XboxController.Button.kLeftStick.value);
+    private final JoystickAnalogButton DrightTrigger = new JoystickAnalogButton(Dcontroller, RT);
 
     private final JoystickButton MstartButton = new JoystickButton(Mcontroller, XboxController.Button.kStart.value);
     private final JoystickButton MselectButton = new JoystickButton(Mcontroller, XboxController.Button.kBack.value);
@@ -80,6 +81,8 @@ public class RobotContainer {
                         m_IntakeSubsystem,
                         () -> DrightBumper.getAsBoolean(),
                         () -> DleftBumper.getAsBoolean(),
+                        () -> DaButton.getAsBoolean(),
+                        () -> DbButton.getAsBoolean(),
                         m_LedSubsystem));
 
         m_ArmSubsystem.setDefaultCommand(new moveArmWithTheSticks(
@@ -126,33 +129,33 @@ public class RobotContainer {
         // double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-        133, 170, 233, 23,
-        40, 30, 100, 40,
+        70, 115, 164, -35,
+        30, 15, 50, 20,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,
-        7, 10, 2, 4)); // high
+        9, 10, 2, 4)); // high
 
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                143.7, 177, 183, 93,
-                40, 30, 70, 15,
+                70, 115, 123, 35,
+                40, 15, 50, 20,
                 .3, .1, 0, .6, .2, 0,
                 .25, .1, 0, .25, .1, 0,
-                7, 10, 4, 5)); // mid
+                9, 10, 7, 7)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                146, 180, 185, 178,
-                40, 13, 50, 5,
+                73, 123, 112, 116,
+                25, 13, 30, 5,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
-                4, 4, 2, 2)); // intake
-
+                7, 5, 2, 2)); // intake
+/* 
         MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-        137, 173, 233, 15,
+        83, 173, 170, 15,
         40, 30, 80, 35,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,
         7, 10, 2, 4)); // test
-
+*/
         MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new stopTheArmTweakin(m_ArmSubsystem)); // stop arm
         MselectButton.onTrue(new InstantCommand(() -> m_LedSubsystem.ToggleBlink()));

@@ -3,6 +3,7 @@ package frc.robot.autos;
 import frc.robot.Constants;
 import frc.robot.commands.ArmSet2PtPath;
 import frc.robot.commands.IntakeSpin;
+import frc.robot.commands.autoBalance;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
@@ -113,7 +114,8 @@ public class KepychKapper extends SequentialCommandGroup {
                 40, 13, 50, 5,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
-                4, 4, 2, 2))
+                4, 4, 2, 2)),
+                new autoBalance(m_SwerveSubsystem)
                 //new KepychKapper2(m_ArmSubsystem, m_SwerveSubsystem, command)
         /*
           new ArmSet2PtPath(m_ArmSubsystem,
