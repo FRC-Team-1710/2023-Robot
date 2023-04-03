@@ -22,7 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
   boolean up;
 
   public IntakeSubsystem() {
-    thruIntake = new TalonFX(50, "carnivore uno");
+    thruIntake = new TalonFX(50, "carnivorous rex");
     overIntake = new TalonFX(53);
     jointL = new TalonFX(51);
     jointR = new TalonFX(52);
@@ -87,9 +87,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void spin(double speed) {
     thruIntake.set(TalonFXControlMode.PercentOutput, speed);
-    if (!up){
-      overIntake.set(TalonFXControlMode.PercentOutput, speed);
-    }
+    
       if (speed > 0 && up){
         jointR.set(TalonFXControlMode.Position, 8700);
         jointL.set(TalonFXControlMode.Position, 8900);
@@ -102,6 +100,11 @@ public class IntakeSubsystem extends SubsystemBase {
         jointR.set(TalonFXControlMode.Position, -200);
         jointL.set(TalonFXControlMode.Position, -300);
         up = true;
+      }
+      if (!up){
+        overIntake.set(TalonFXControlMode.PercentOutput, speed);
+      } else {
+        overIntake.set(TalonFXControlMode.PercentOutput, 0);
       }
     }
 

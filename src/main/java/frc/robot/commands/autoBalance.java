@@ -24,7 +24,7 @@ public class autoBalance extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         m_SwerveSub = subsystem;
         addRequirements(subsystem);
-        xPidController = new PIDController(.06, 0.0, 0.01);
+        xPidController = new PIDController(.05, 0.0, 0.01);
         gyro = subsystem.gyro;
         timer = new Timer();
     }
@@ -39,7 +39,7 @@ public class autoBalance extends CommandBase {
     @Override
     public void execute() {
         double currentA = gyro.getPitch();
-        if (Math.abs(currentA) > 0.1) {
+        if (Math.abs(currentA) > 0.09) {
             timer.reset();
             double vx = xPidController.calculate(currentA, 0);
             m_SwerveSub.drive(new Translation2d(vx, 0), 0, false, true);

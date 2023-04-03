@@ -75,6 +75,7 @@ public class RobotContainer {
                         () -> DleftStick.getAsBoolean()));
 
         m_LedSubsystem.SetAllianceColor();
+        
 
         m_IntakeSubsystem.setDefaultCommand(
                 new IntakeCommand(
@@ -99,6 +100,7 @@ public class RobotContainer {
                 m_PneumaticSubsystem, m_VisionSubsystem));
         commandChooser.addOption("Mid", new HighScore(m_SwerveSubsystem, m_IntakeSubsystem, 
                 m_ArmSubsystem, m_PneumaticSubsystem));
+        commandChooser.addOption("No Arm DO NOT USE", new STNoArm(m_SwerveSubsystem, m_IntakeSubsystem));
         SmartDashboard.putData("Auto Selection", commandChooser);
 
         // Configure the button bindings
@@ -129,22 +131,31 @@ public class RobotContainer {
         // double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-        70, 115, 164, -35,
-        30, 15, 50, 20,
+        140, 115, 236, -30,
+        30, 15, 60, 25,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,
-        9, 10, 2, 4)); // high
+        9, 10, 2.5, 4.5)); // high
 
+        /* 
+        MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
+        140, 115, 236, -26,
+        30, 15, 60, 25,
+        .3, .1, 0, .6, .25, 0,
+        .35, .1, 0, .35, .1, 0,
+        9, 10, 4, 6)); // high
+
+        */
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                70, 115, 123, 35,
-                40, 15, 50, 20,
+                140, 115, 198, 47,
+                30, 15, 50, 20,
                 .3, .1, 0, .6, .2, 0,
                 .25, .1, 0, .25, .1, 0,
                 9, 10, 7, 7)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                73, 123, 112, 116,
-                25, 13, 30, 5,
+                143, 123, 182, 116,
+                30, 15, 20, 7,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
                 7, 5, 2, 2)); // intake

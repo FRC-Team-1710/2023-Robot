@@ -124,11 +124,11 @@
     },
     {
       "anchorPoint": {
-        "x": 12.66,
+        "x": 12.7,
         "y": 3.28
       },
       "prevControl": {
-        "x": 12.383344489710591,
+        "x": 12.42334448971059,
         "y": 3.28
       },
       "nextControl": null,
@@ -156,7 +156,7 @@
       ]
     },
     {
-      "position": 2.97,
+      "position": 3.0,
       "names": [
         "Intook"
       ]

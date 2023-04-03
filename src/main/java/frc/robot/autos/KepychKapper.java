@@ -101,20 +101,20 @@ public class KepychKapper extends SequentialCommandGroup {
                 new InstantCommand(() -> m_PneumaticSubsystem.SetTwoSolenoidsForward()),
                 new WaitCommand(.1),
                 new ArmSet2PtPath(m_ArmSubsystem,
-        137, 173, 233, 15,
-        40, 30, 80, 35,
+        140, 115, 236, -30,
+        30, 15, 60, 25,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,
-        7, 10, 2, 4).raceWith(new WaitCommand(7)),
+        9, 10, 2.5, 4.5).raceWith(new WaitCommand(5.5)),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
                 //new WaitCommand(.1),
                 //path1
                 command.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
-                146, 180, 185, 178,
-                40, 13, 50, 5,
+                143, 123, 182, 116,
+                30, 15, 20, 7,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
-                4, 4, 2, 2)),
+                7, 5, 2, 2)),
                 new autoBalance(m_SwerveSubsystem)
                 //new KepychKapper2(m_ArmSubsystem, m_SwerveSubsystem, command)
         /*
