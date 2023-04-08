@@ -34,9 +34,14 @@ public class LedSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    SmartDashboard.putBoolean("isPurple", isPurple);
-    SmartDashboard.putBoolean("isSolid", isBlinking);
+    //SmartDashboard.putBoolean("isPurple", isPurple);
+    //SmartDashboard.putBoolean("isSolid", isBlinking);
 
+    if(SmartDashboard.getBoolean("ENCODER FAILURE", false)){
+      SetConeOrCubeColor(true);
+    }else{
+      SetConeOrCubeColor(false);
+    }
   }
 
   public void SetAllianceColor() {

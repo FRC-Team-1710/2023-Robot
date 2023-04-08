@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -37,8 +38,11 @@ public class RobotContainer {
     private final JoystickButton DleftBumper = new JoystickButton(Dcontroller, XboxController.Button.kLeftBumper.value);
     private final JoystickButton DrightBumper = new JoystickButton(Dcontroller, XboxController.Button.kRightBumper.value);
     private final JoystickButton DleftStick = new JoystickButton(Dcontroller, XboxController.Button.kLeftStick.value);
+    private final JoystickAnalogButton DrightTrigger = new JoystickAnalogButton(Dcontroller, RT);
 
     private final JoystickButton MstartButton = new JoystickButton(Mcontroller, XboxController.Button.kStart.value);
+    private final JoystickButton MselectButton = new JoystickButton(Mcontroller, XboxController.Button.kBack.value);
+
     private final JoystickButton MaButton = new JoystickButton(Mcontroller, XboxController.Button.kA.value);
     private final JoystickButton MbButton = new JoystickButton(Mcontroller, XboxController.Button.kB.value);
     private final JoystickButton MxButton = new JoystickButton(Mcontroller, XboxController.Button.kX.value);
@@ -71,12 +75,16 @@ public class RobotContainer {
                         () -> DleftStick.getAsBoolean()));
 
         m_LedSubsystem.SetAllianceColor();
+        
 
         m_IntakeSubsystem.setDefaultCommand(
                 new IntakeCommand(
                         m_IntakeSubsystem,
                         () -> DrightBumper.getAsBoolean(),
-                        () -> DleftBumper.getAsBoolean()));
+                        () -> DleftBumper.getAsBoolean(),
+                        () -> DaButton.getAsBoolean(),
+                        () -> DbButton.getAsBoolean(),
+                        m_LedSubsystem));
 
         m_ArmSubsystem.setDefaultCommand(new moveArmWithTheSticks(
                 m_ArmSubsystem,
@@ -86,10 +94,14 @@ public class RobotContainer {
 
         // m_LedSubsystem.setDefaultCommand(new LedCommand(m_LedSubsystem));
 
-        commandChooser.setDefaultOption("Kapper",
+        commandChooser.setDefaultOption("Kapper (Top)",
                 new KepychKapper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
-        commandChooser.addOption("Topper", new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem,
+        commandChooser.addOption("Topper (Bot)", new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem,
                 m_PneumaticSubsystem, m_VisionSubsystem));
+        commandChooser.addOption("Mid", new HighScore(m_SwerveSubsystem, m_IntakeSubsystem, 
+                m_ArmSubsystem, m_PneumaticSubsystem));
+        commandChooser.addOption("No Arm DO NOT USE", new STNoArm(m_SwerveSubsystem, m_IntakeSubsystem));
+        SmartDashboard.putData("Auto Selection", commandChooser);
 
         // Configure the button bindings
         configureButtonBindings();
@@ -108,45 +120,56 @@ public class RobotContainer {
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
         DyButton.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem,
                 m_VisionSubsystem));
-        DaButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 0));
-        DxButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, -1));
-        DbButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 1));
+        DxButton.whileTrue(new autoBalance(m_SwerveSubsystem));
+        //DaButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 0));
+        //DxButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, -1));
+        //DbButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 1));
         // DrightTrigger.whileTrue(new IntakeWithVision(m_IntakeSubsystem,
         // m_SwerveSubsystem, m_VisionSubsystem));
 
-        //double hos = 0;
-        //double uos = 0;
+        // double hos = 0;
+        // double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                138, 225, 238.5, 63,
-                40, 30, 70, 10,
-                .3, .1, 0, .6, .25, 0,
-                .35, .1, 0, .35, .1, 0,
-                5, 7, 2, 4)); // high
+        140, 115, 236, -30,
+        30, 15, 60, 25,
+        .3, .1, 0, .6, .25, 0,
+        .35, .1, 0, .35, .1, 0,
+        9, 10, 2.5, 4.5)); // high
 
+        /* 
+        MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
+        140, 115, 236, -26,
+        30, 15, 60, 25,
+        .3, .1, 0, .6, .25, 0,
+        .35, .1, 0, .35, .1, 0,
+        9, 10, 4, 6)); // high
+
+        */
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                143.7, 225, 193.7, 149,
-                25, 40, 70, 15,
+                140, 115, 198, 47,
+                30, 15, 50, 20,
                 .3, .1, 0, .6, .2, 0,
                 .25, .1, 0, .25, .1, 0,
-                7, 10, 2, 4)); // mid
+                9, 10, 7, 7)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                155, 233, 185, 227,
-                40, 13, 60, 6,
+                143, 123, 182, 116,
+                30, 15, 20, 7,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
-                4, 4, 2, 2)); // intake
-
-        MxButton.onTrue(new ArmSetAngles(m_ArmSubsystem,
-                178, 224.7,
-                40, 13,
-                .1, .1, 0,
-                .3, .1, 0,
-                2, 3)); // test
-
+                7, 5, 2, 2)); // intake
+/* 
+        MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
+        83, 173, 170, 15,
+        40, 30, 80, 35,
+        .3, .1, 0, .6, .25, 0,
+        .35, .1, 0, .35, .1, 0,
+        7, 10, 2, 4)); // test
+*/
         MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new stopTheArmTweakin(m_ArmSubsystem)); // stop arm
+        MselectButton.onTrue(new InstantCommand(() -> m_LedSubsystem.ToggleBlink()));
 
     }
 
@@ -158,6 +181,11 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         // return new exampleAuto(m_SwerveSubsystem, testPath)
+        // return new KepychKapper(m_SwerveSubsystem, m_IntakeSubsystem,
+        // m_ArmSubsystem, m_PneumaticSubsystem);
+
+        // return new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem,
+        // m_ArmSubsystem, m_PneumaticSubsystem, m_VisionSubsystem);
         // return new ScoreNBalance(m_SwerveSubsystem, m_IntakeSubsystem,
         // m_ArmSubsystem, m_PneumaticSubsystem);
 

@@ -54,7 +54,7 @@ public class PneumaticSubsystem extends SubsystemBase {
   public void SetTwoSolenoidsForward(){
 
     deezSolenoid.set(kForward);
-    nutsSolenoid.set(kForward);
+    //nutsSolenoid.set(kForward);
     bothPneuForward = true;
 
   }

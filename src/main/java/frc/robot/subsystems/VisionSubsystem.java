@@ -55,14 +55,6 @@ public class VisionSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Iris Target", irisHasTarget());
         // SmartDashboard.putBoolean("Retina Target", retinaHasTarget());
         SmartDashboard.putBoolean("Sclera Target", scleraHasTarget());
-
-        SmartDashboard.putNumber("straight dis", straightToTag());
-        SmartDashboard.putNumber("current X", getCurrentX());
-        SmartDashboard.putNumber("current Y", getCurrentY());
-        SmartDashboard.putNumber("THA X", getXDisToTag() * 39.7);
-        SmartDashboard.putNumber("THA Y", getYDisToTag() * 39.7);
-        SmartDashboard.putNumber("THA Y TWO", getXDisToTag() * Math.tan(angleToTag()));
-        SmartDashboard.putNumber("angle ", angleToTag());
     }
 
     public boolean irisHasTarget() {

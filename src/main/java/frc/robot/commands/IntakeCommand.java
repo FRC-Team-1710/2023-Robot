@@ -8,21 +8,25 @@ import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LedSubsystem;
 
 public class IntakeCommand extends CommandBase {
 
   IntakeSubsystem intake;
-  BooleanSupplier rightPressed;
-  BooleanSupplier leftPressed;
+  BooleanSupplier rightPressed, leftPressed,rightTPressed, leftTPressed, Shoot;
+  LedSubsystem LED;
 
   /** Creates a new IntakeCommand. */
-  public IntakeCommand(IntakeSubsystem intakeSubsystem, BooleanSupplier rBumper, BooleanSupplier lBumper) {
+  public IntakeCommand(IntakeSubsystem intakeSubsystem, BooleanSupplier rBumper, BooleanSupplier lBumper, BooleanSupplier rTrigger, BooleanSupplier shoot, LedSubsystem ledSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = intakeSubsystem;
     addRequirements(intakeSubsystem);
 
+    LED = ledSubsystem;
     rightPressed = rBumper;
     leftPressed = lBumper;
+    rightTPressed = rTrigger;
+    Shoot = shoot;
   }
 
   // Called when the command is initially scheduled.
@@ -36,17 +40,28 @@ public class IntakeCommand extends CommandBase {
   public void execute() {
     if (rightPressed.getAsBoolean()){
       intake.spin(.5);
+      LED.SetVisionPattern(true);
     } else if (leftPressed.getAsBoolean()){
       intake.spin(-.5);
-    } else {
+      LED.SetVisionPattern(true);
+
+    } else if (rightTPressed.getAsBoolean()){
+intake.spinInside(.5);
+    }
+    else if(Shoot.getAsBoolean()){
+      intake.spinInside(-1);
+    }
+    
+    else {
       intake.spin(0);
+      LED.SetVisionPattern(false);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+   
   }
 
   // Returns true when the command should end.
