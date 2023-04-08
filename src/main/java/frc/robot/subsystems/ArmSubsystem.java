@@ -57,8 +57,8 @@ public class ArmSubsystem extends SubsystemBase {
     um2.setIdleMode(IdleMode.kBrake);
 
     hm2.follow(hm1, false);
-    hm3.follow(hm1, false);
-    hm4.follow(hm1, false);
+    hm3.follow(hm1, true);
+    hm4.follow(hm1, true);
     um2.follow(um1, false);
   }
 
@@ -66,8 +66,12 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("hangle", getHPos());
     SmartDashboard.putNumber("uangle", getUPos());
-    SmartDashboard.putNumber("hum speed", hm1.get());
-    SmartDashboard.putNumber("uln speed", um1.get());
+    
+
+    SmartDashboard.putNumber("hum1 speed", hm1.get());
+    SmartDashboard.putNumber("hum2 speed", hm2.get());
+    SmartDashboard.putNumber("hum3 speed", hm3.get());
+    SmartDashboard.putNumber("hum4 speed", hm4.get());
 
     if (getHPos() == 0 || getUPos() == 0){
      ENCFAIL = true;
@@ -94,7 +98,7 @@ ENCFAIL = false;
 
     
 
-    hm1.set(1 * (hPID.calculate(getHPos(), hangle) / (hdf)));
+    hm1.set(-1 * (hPID.calculate(getHPos(), hangle) / (hdf)));
     um1.set(1 * (uPID.calculate(getUPos(), uangle) / (udf)));
   }
 

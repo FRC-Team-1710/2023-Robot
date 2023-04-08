@@ -131,11 +131,11 @@ public class RobotContainer {
         // double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-        140, 115, 236, -30,
-        30, 15, 60, 25,
+        83, 277, 179, 104,
+        30, 15, 80, 20,
         .3, .1, 0, .6, .25, 0,
         .35, .1, 0, .35, .1, 0,
-        9, 10, 2.5, 4.5)); // high
+        5, 5, 2.5, 4.5)); // high
 
         /* 
         MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
@@ -147,18 +147,18 @@ public class RobotContainer {
 
         */
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                140, 115, 198, 47,
+                83, 277, 128.5, 194,
                 30, 15, 50, 20,
                 .3, .1, 0, .6, .2, 0,
                 .25, .1, 0, .25, .1, 0,
                 9, 10, 7, 7)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                143, 123, 182, 116,
+                83, 277, 115, 268,
                 30, 15, 20, 7,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
-                7, 5, 2, 2)); // intake
+                7, 5, 3, 3)); // intake
 /* 
         MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
         83, 173, 170, 15,
