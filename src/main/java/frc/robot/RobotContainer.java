@@ -98,8 +98,7 @@ public class RobotContainer {
                 new KepychKapper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
         commandChooser.addOption("Topper (Bot)", new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem,
                 m_PneumaticSubsystem, m_VisionSubsystem));
-        commandChooser.addOption("Mid", new HighScore(m_SwerveSubsystem, m_IntakeSubsystem, 
-                m_ArmSubsystem, m_PneumaticSubsystem));
+        commandChooser.addOption("Jhoppa", new Jhoppin(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
         commandChooser.addOption("No Arm DO NOT USE", new STNoArm(m_SwerveSubsystem, m_IntakeSubsystem));
         SmartDashboard.putData("Auto Selection", commandChooser);
 

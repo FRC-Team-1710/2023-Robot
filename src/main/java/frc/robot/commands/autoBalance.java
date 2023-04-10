@@ -10,7 +10,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class autoBalance extends CommandBase {
@@ -24,7 +23,7 @@ public class autoBalance extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         m_SwerveSub = subsystem;
         addRequirements(subsystem);
-        xPidController = new PIDController(.05, 0.0, 0.01);
+        xPidController = new PIDController(.045, 0.0, 0.0);
         gyro = subsystem.gyro;
         timer = new Timer();
     }
