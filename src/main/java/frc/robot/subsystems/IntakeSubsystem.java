@@ -93,12 +93,12 @@ public class IntakeSubsystem extends SubsystemBase {
         jointL.set(TalonFXControlMode.Position, 8900);
         up = false;
       } else if (speed == 0 && !up){
-        jointR.set(TalonFXControlMode.Position, -200);
-        jointL.set(TalonFXControlMode.Position, -300);
+        jointR.set(TalonFXControlMode.Position, -100);
+        jointL.set(TalonFXControlMode.Position, -100);
         up = true;
       } else if (speed < 0 && !up){
-        jointR.set(TalonFXControlMode.Position, -200);
-        jointL.set(TalonFXControlMode.Position, -300);
+        jointR.set(TalonFXControlMode.Position, -100);
+        jointL.set(TalonFXControlMode.Position, -100);
         up = true;
       }
       if (!up){

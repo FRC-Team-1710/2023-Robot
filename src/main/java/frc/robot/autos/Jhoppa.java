@@ -27,8 +27,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class Jhoppin extends SequentialCommandGroup {
-    public Jhoppin(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
+public class Jhoppa extends SequentialCommandGroup {
+    public Jhoppa(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
             PneumaticSubsystem m_PneumaticSubsystem) {
 
         PathPlannerTrajectory trajectory1;
@@ -44,13 +44,9 @@ public class Jhoppin extends SequentialCommandGroup {
             trajectory1 = PathPlanner.loadPath("KepychKapper Red", new PathConstraints(2, 2));
             initialPose = new Pose2d(14.74, 4.95, new Rotation2d(0));
         } else {*/
-            trajectory1 = PathPlanner.loadPath("backwards", new PathConstraints(1.5, 2));
+            trajectory1 = PathPlanner.loadPath("jhoppa", new PathConstraints(1.5, 1.5));
             initialPose = trajectory1.getInitialPose();
         //}
-
-        HashMap<String, Command> eventMap = new HashMap<>();
-        eventMap.put("Intake", new IntakeSpin(m_IntakeSubsystem, 0.5));
-        eventMap.put("Intook", new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
 
         PPSwerveControllerCommand path1 = new PPSwerveControllerCommand(
                 trajectory1,
@@ -63,11 +59,6 @@ public class Jhoppin extends SequentialCommandGroup {
                 false,
                 m_SwerveSubsystem);
 
-        FollowPathWithEvents command = new FollowPathWithEvents(
-                path1,
-                trajectory1.getMarkers(),
-                eventMap);
-
         addCommands(
                 new InstantCommand(() -> m_SwerveSubsystem.resetModulesToAbsolute()),
                 new InstantCommand(() -> m_SwerveSubsystem.setGyro(0)),
@@ -79,9 +70,9 @@ public class Jhoppin extends SequentialCommandGroup {
                 30, 15, 80, 20,
                 .3, .1, 0, .6, .25, 0,
                 .35, .1, 0, .35, .1, 0,
-                5, 5, 2.5, 4.5).raceWith(new WaitCommand(5)),
+                5, 5, 2.5, 4.5).raceWith(new WaitCommand(5.5)),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
-                command.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
+                path1.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
                 83, 277, 115, 268,
                 30, 15, 20, 7,
                 .2, .2, 0, .4, .2, 0,

@@ -98,7 +98,8 @@ public class RobotContainer {
                 new KepychKapper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
         commandChooser.addOption("Topper (Bot)", new TheSloppyTopper(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem,
                 m_PneumaticSubsystem, m_VisionSubsystem));
-        commandChooser.addOption("Jhoppa", new Jhoppin(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
+        commandChooser.addOption("Jhoppin (Mid cone)", new Jhoppin(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
+        commandChooser.addOption("Jhoppa (Mid cube)", new Jhoppa(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
         commandChooser.addOption("No Arm DO NOT USE", new STNoArm(m_SwerveSubsystem, m_IntakeSubsystem));
         SmartDashboard.putData("Auto Selection", commandChooser);
 
@@ -119,7 +120,10 @@ public class RobotContainer {
         DstartButton.onTrue(new InstantCommand(() -> m_SwerveSubsystem.zeroGyro()));
         DyButton.whileTrue(new IntakeWithVision(m_IntakeSubsystem, m_SwerveSubsystem,
                 m_VisionSubsystem));
-        DxButton.whileTrue(new autoBalance(m_SwerveSubsystem));
+                DxButton.onTrue(new IntakeVisionAuto(m_IntakeSubsystem, m_SwerveSubsystem,
+                m_VisionSubsystem));
+        //DxButton.whileTrue(new autoBalance(m_SwerveSubsystem));
+        
         //DaButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 0));
         //DxButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, -1));
         //DbButton.onTrue(new TheSightChallenge(m_VisionSubsystem, m_SwerveSubsystem, 1));
@@ -130,11 +134,11 @@ public class RobotContainer {
         // double uos = 0;
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-        83, 277, 179, 104,
-        30, 15, 80, 20,
-        .3, .1, 0, .6, .25, 0,
-        .35, .1, 0, .35, .1, 0,
-        5, 5, 2.5, 4.5)); // high
+        83, 277, 179, 120,
+        20, 15, 70, 3,
+        .35, .1, 0, .9, .7, 0,
+        .35, .1, 0, .35, .4, 0,
+        5, 4, 6, 4.5)); // high
 
         /* 
         MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
@@ -153,11 +157,11 @@ public class RobotContainer {
                 9, 10, 7, 7)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                83, 277, 115, 268,
+                83, 277, 115, 269,
                 30, 15, 20, 7,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
-                7, 5, 3, 3)); // intake
+                7, 5, 4, 3)); // intake
 /* 
         MxButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
         83, 173, 170, 15,
@@ -169,6 +173,7 @@ public class RobotContainer {
         MleftBumper.onTrue(new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         MstartButton.onTrue(new stopTheArmTweakin(m_ArmSubsystem)); // stop arm
         MselectButton.onTrue(new InstantCommand(() -> m_LedSubsystem.ToggleBlink()));
+
 
     }
 

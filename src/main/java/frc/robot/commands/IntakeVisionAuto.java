@@ -13,19 +13,22 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class IntakeWithVision extends CommandBase {
+
+public class IntakeVisionAuto extends CommandBase {
     /** Creates a new IntakeWithVision. */
     private final IntakeSubsystem m_IntakeSubsystem;
     private final Swerve m_SwerveSub;
     private final VisionSubsystem m_VisionSubsystem;
     private final PIDController xPidController, yPidController;
+    private final Timer timer;
+    private boolean done;
 
-    public IntakeWithVision(IntakeSubsystem subsystem, Swerve subsystem1, VisionSubsystem subsystem2) {
+    public IntakeVisionAuto(IntakeSubsystem subsystem, Swerve subsystem1, VisionSubsystem subsystem2) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_IntakeSubsystem = subsystem;
         m_SwerveSub = subsystem1;
         m_VisionSubsystem = subsystem2;
-
+timer = new Timer();
         addRequirements(subsystem2);
         xPidController = new PIDController(.1, .1, 0);
         yPidController = new PIDController(.3, .1, 0);
@@ -37,6 +40,8 @@ public class IntakeWithVision extends CommandBase {
     public void initialize() {
         // int bestPipe = m_VisionSubsystem.pipelinePanic("Sclera");
         m_VisionSubsystem.setScleraPipeline(1);
+        
+        done = false;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -46,14 +51,24 @@ public class IntakeWithVision extends CommandBase {
         double yDisplacement = m_VisionSubsystem.getYOffsetGP();
         double vx = xPidController.calculate(xDisplacement, 0);
         double vy = yPidController.calculate(yDisplacement, 1);
+        
 
-        if (yDisplacement <= .75) {
-            m_IntakeSubsystem.spin(.5);
-            m_SwerveSub.drive(new Translation2d(.8, 0), vx, false, false);
+        if (yDisplacement <= .5) {
+          timer.reset();
+            timer.start();
 
-        } else {
+            if(timer.get() < 2){
+                m_IntakeSubsystem.spin(.5);
+                m_SwerveSub.drive(new Translation2d(.75, 0), 0, false, false);
+            }
+            if(timer.get() > 2.5){
+              done = true;
+            }
+                
+            
+        } if(yDisplacement > .5){
             if (m_VisionSubsystem.scleraHasTarget()) {
-                m_SwerveSub.drive(new Translation2d(-vy, 0), 0, false, false);
+                m_SwerveSub.drive(new Translation2d(-vy, 0), vx, false, false);
             }
         }
 
@@ -62,6 +77,7 @@ public class IntakeWithVision extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+      timer.reset();
         m_IntakeSubsystem.spin(0);
         m_SwerveSub.drive(new Translation2d(0, 0), 0, false, false);
 
@@ -70,6 +86,7 @@ public class IntakeWithVision extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return done;
+
     }
 }
