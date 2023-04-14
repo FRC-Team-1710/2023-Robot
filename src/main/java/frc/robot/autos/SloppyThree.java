@@ -2,8 +2,12 @@ package frc.robot.autos;
 
 import frc.robot.Constants;
 import frc.robot.commands.IntakeSpin;
+import frc.robot.commands.the28thAmmendments;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.VisionSubsystem;
+
 import java.util.HashMap;
 
 import com.pathplanner.lib.PathConstraints;
@@ -22,8 +26,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class STNoArm extends SequentialCommandGroup {
-    public STNoArm(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem) {
+public class SloppyThree extends SequentialCommandGroup {
+    public SloppyThree(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, PneumaticSubsystem m_PneumaticSubsystem, VisionSubsystem m_VisionSubsystem) {
 
         PathPlannerTrajectory trajectory1;
         PathPlannerTrajectory trajectory2;
@@ -43,9 +47,9 @@ public class STNoArm extends SequentialCommandGroup {
 
                 initialPose = new Pose2d(14.73, .5, new Rotation2d(0));
         } else {
-                trajectory1 = PathPlanner.loadPath("ST", new PathConstraints(1.5, 1.5));
-                trajectory2 = PathPlanner.loadPath("ST2", new PathConstraints(2.5, 2.5));
-                trajectory3 = PathPlanner.loadPath("third piece", new PathConstraints(1.5, 1.5));
+                trajectory1 = PathPlanner.loadPath("ST", new PathConstraints(3, 3));
+                trajectory2 = PathPlanner.loadPath("ST2", new PathConstraints(3, 3));
+                trajectory3 = PathPlanner.loadPath("third piece", new PathConstraints(3, 3));
                 
                 initialPose = trajectory1.getInitialPose();
         }
@@ -53,6 +57,7 @@ public class STNoArm extends SequentialCommandGroup {
         HashMap<String, Command> eventMap = new HashMap<>();
         eventMap.put("Intake", new IntakeSpin(m_IntakeSubsystem, 0.5));
         eventMap.put("Intook", new InstantCommand(() -> m_IntakeSubsystem.spin(0)));
+        eventMap.put("Blind Man Sees", new the28thAmmendments(m_VisionSubsystem, m_SwerveSubsystem));
 
 
         PPSwerveControllerCommand path1 = new PPSwerveControllerCommand(
@@ -93,18 +98,24 @@ public class STNoArm extends SequentialCommandGroup {
                 trajectory1.getMarkers(),
                 eventMap);
 
-        FollowPathWithEvents command2 = new FollowPathWithEvents(path3, trajectory3.getMarkers(), eventMap);
+        FollowPathWithEvents command2 = new FollowPathWithEvents(path2, trajectory2.getMarkers(), eventMap);
+
+        FollowPathWithEvents command3 = new FollowPathWithEvents(path3, trajectory3.getMarkers(), eventMap);
 
         addCommands(
                 new InstantCommand(() -> m_SwerveSubsystem.resetModulesToAbsolute()),
                 new InstantCommand(() -> m_SwerveSubsystem.setGyro(0)),
                 new InstantCommand(() -> m_SwerveSubsystem.resetOdometry(initialPose)),
-                command,
-                path2,
-                new WaitCommand(.15),
+                new InstantCommand(() -> m_PneumaticSubsystem.SetTwoSolenoidsReverse()),
                 new IntakeSpin(m_IntakeSubsystem, -0.7),
-                new WaitCommand(2),
+                //new WaitCommand(.7),
+                //new IntakeSpin(m_IntakeSubsystem, 0),
+                command,
+                command2,
+               // new WaitCommand(.15),
+                new IntakeSpin(m_IntakeSubsystem, -0.55),
+                new WaitCommand(1),
                 new IntakeSpin(m_IntakeSubsystem, 0),
-                command2);
+                command3);
     }
 }

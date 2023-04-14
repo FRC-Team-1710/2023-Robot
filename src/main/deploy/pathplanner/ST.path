@@ -50,15 +50,15 @@
     {
       "anchorPoint": {
         "x": 5.95,
-        "y": 1.0
+        "y": 0.94
       },
       "prevControl": {
         "x": 5.331330194096319,
-        "y": 1.0
+        "y": 0.94
       },
       "nextControl": {
         "x": 6.568669805903681,
-        "y": 1.0
+        "y": 0.94
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -75,15 +75,15 @@
     {
       "anchorPoint": {
         "x": 7.62,
-        "y": 1.0
+        "y": 0.94
       },
       "prevControl": {
         "x": 6.620000000000003,
-        "y": 1.0
+        "y": 0.94
       },
       "nextControl": {
         "x": 7.9977241117328814,
-        "y": 1.0
+        "y": 0.94
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -100,11 +100,11 @@
     {
       "anchorPoint": {
         "x": 7.65,
-        "y": 1.0
+        "y": 0.94
       },
       "prevControl": {
         "x": 7.573005191751603,
-        "y": 1.0
+        "y": 0.94
       },
       "nextControl": null,
       "holonomicAngle": 0,
@@ -131,9 +131,21 @@
       ]
     },
     {
-      "position": 3.0,
+      "position": 2.98,
       "names": [
         "Intook"
+      ]
+    },
+    {
+      "position": 0.10181818181818011,
+      "names": [
+        "Intook"
+      ]
+    },
+    {
+      "position": 1.0036363636364012,
+      "names": [
+        "Blind Man Sees"
       ]
     }
   ]

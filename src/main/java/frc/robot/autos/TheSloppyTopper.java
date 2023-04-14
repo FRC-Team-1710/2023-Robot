@@ -46,8 +46,8 @@ public class TheSloppyTopper extends SequentialCommandGroup {
                 trajectory2 = PathPlanner.loadPath("ST2 Red", new PathConstraints(2.5, 2.5));
                 initialPose = new Pose2d(14.73, .5, new Rotation2d(0));
         } else {
-                trajectory1 = PathPlanner.loadPath("ST", new PathConstraints(1.5, 1.5));
-                trajectory2 = PathPlanner.loadPath("ST2", new PathConstraints(2.5, 2.5));
+                trajectory1 = PathPlanner.loadPath("ST Copy", new PathConstraints(1.5, 1.5));
+                trajectory2 = PathPlanner.loadPath("ST2 Copy", new PathConstraints(2.5, 2.5));
                 initialPose = trajectory1.getInitialPose();
         }
 

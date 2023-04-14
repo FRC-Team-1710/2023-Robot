@@ -49,12 +49,12 @@
     },
     {
       "anchorPoint": {
-        "x": 1.68,
-        "y": 1.2
+        "x": 1.79,
+        "y": 1.15
       },
       "prevControl": {
-        "x": 1.4703900641181047,
-        "y": 1.2
+        "x": 1.5803900641181048,
+        "y": 1.15
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -78,6 +78,12 @@
       "position": 0.24727272727271343,
       "names": [
         "Arm Up"
+      ]
+    },
+    {
+      "position": 1.4545454545454872,
+      "names": [
+        "Blind Man Sees"
       ]
     }
   ]

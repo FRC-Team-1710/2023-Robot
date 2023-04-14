@@ -27,8 +27,8 @@ public class PneumaticSubsystem extends SubsystemBase {
   public PneumaticSubsystem() {
 
     // Sets all solenoids to the same position
-    deezSolenoid.set(kReverse);
-    nutsSolenoid.set(kReverse);
+    deezSolenoid.set(kForward);
+    nutsSolenoid.set(kForward);
     bothPneuForward = false;
 
   }

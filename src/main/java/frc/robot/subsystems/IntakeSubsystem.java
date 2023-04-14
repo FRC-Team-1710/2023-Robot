@@ -22,7 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
   boolean up;
 
   public IntakeSubsystem() {
-    thruIntake = new TalonFX(50, "carnivorous rex");
+    thruIntake = new TalonFX(50, "carnivore uno");
     overIntake = new TalonFX(53);
     jointL = new TalonFX(51);
     jointR = new TalonFX(52);
@@ -68,9 +68,7 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Left Position", jointL.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Right Position", jointR.getSelectedSensorPosition());
-    SmartDashboard.putBoolean("Intake upo", up);
+    
   }
 
   public void toggleSpin() {

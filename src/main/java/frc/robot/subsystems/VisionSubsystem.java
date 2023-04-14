@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonCamera;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
- import edu.wpi.first.apriltag.AprilTagFields;
- import edu.wpi.first.math.geometry.Pose2d;
- import edu.wpi.first.wpilibj.DriverStation;
- import java.io.IOException;
- import java.util.Optional;
- import org.photonvision.EstimatedRobotPose;
- import org.photonvision.PhotonPoseEstimator.PoseStrategy;
- import frc.robot.Constants;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import java.io.IOException;
+import java.util.Optional;
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import frc.robot.Constants;
 
 public class VisionSubsystem extends SubsystemBase {
     /** Creates a new VisionSubsystem. */
@@ -29,15 +29,16 @@ public class VisionSubsystem extends SubsystemBase {
     public VisionSubsystem() {
 
         try {
-            // Attempt to load the AprilTagFieldLayout that will tell us where the tags are on the field.
+            // Attempt to load the AprilTagFieldLayout that will tell us where the tags are
+            // on the field.
             AprilTagFieldLayout fieldLayout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
             // Create pose estimator
-            photonPoseEstimator =
-                    new PhotonPoseEstimator(
-                            fieldLayout, PoseStrategy.AVERAGE_BEST_TARGETS, Iris, Constants.robotToCam);
-          
+            photonPoseEstimator = new PhotonPoseEstimator(
+                    fieldLayout, PoseStrategy.AVERAGE_BEST_TARGETS, Iris, Constants.robotToCam);
+
         } catch (IOException e) {
-            // The AprilTagFieldLayout failed to load. We won't be able to estimate poses if we don't know
+            // The AprilTagFieldLayout failed to load. We won't be able to estimate poses if
+            // we don't know
             // where the tags are.
             DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
             photonPoseEstimator = null;
@@ -52,9 +53,6 @@ public class VisionSubsystem extends SubsystemBase {
         // var resultsRetina = Retina.getLatestResult();
         var resultsSclera = Sclera.getLatestResult();
 
-        SmartDashboard.putBoolean("Iris Target", irisHasTarget());
-        // SmartDashboard.putBoolean("Retina Target", retinaHasTarget());
-        SmartDashboard.putBoolean("Sclera Target", scleraHasTarget());
     }
 
     public boolean irisHasTarget() {
@@ -139,7 +137,7 @@ public class VisionSubsystem extends SubsystemBase {
     public double angleToTag() {
         var resultsIris = Iris.getLatestResult();
         double angle;
-       
+
         if (resultsIris.hasTargets()) {
             double rawAngle = resultsIris.getBestTarget().getBestCameraToTarget().getRotation().getZ() * (180 / 3.14);
             if (rawAngle > 0) {
@@ -351,7 +349,6 @@ public class VisionSubsystem extends SubsystemBase {
 
     }
 
-
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
         if (photonPoseEstimator == null) {
             // The field layout failed to load, so we cannot estimate poses.
@@ -362,4 +359,4 @@ public class VisionSubsystem extends SubsystemBase {
     }
 }
 
-// micah was here
+// micah was NOT here

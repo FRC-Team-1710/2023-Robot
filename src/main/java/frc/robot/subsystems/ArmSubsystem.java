@@ -66,17 +66,11 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("hangle", getHPos());
     SmartDashboard.putNumber("uangle", getUPos());
-    
 
-    SmartDashboard.putNumber("hum1 speed", hm1.get());
-    SmartDashboard.putNumber("hum2 speed", hm2.get());
-    SmartDashboard.putNumber("hum3 speed", hm3.get());
-    SmartDashboard.putNumber("hum4 speed", hm4.get());
-
-    if (getHPos() == 0 || getUPos() == 0){
-     ENCFAIL = true;
-    }else{
-ENCFAIL = false;
+    if (getHPos() == 0 || getUPos() == 0) {
+      ENCFAIL = true;
+    } else {
+      ENCFAIL = false;
     }
     SmartDashboard.putBoolean("ENCODER FAILURE", ENCFAIL);
 
@@ -90,13 +84,11 @@ ENCFAIL = false;
     if (getHPos() == 0 || getUPos() == 0) {
       hPID.setPID(0, 0, 0);
       uPID.setPID(0, 0, 0);
-      
+
     } else {
       hPID.setPID(hp, hi, hd);
       uPID.setPID(up, ui, ud);
     }
-
-    
 
     hm1.set(-1 * (hPID.calculate(getHPos(), hangle) / (hdf)));
     um1.set(1 * (uPID.calculate(getUPos(), uangle) / (udf)));
