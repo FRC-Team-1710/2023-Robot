@@ -25,26 +25,26 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class DalyDroppa extends SequentialCommandGroup {
-    public DalyDroppa(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
+public class DalyDroppa2 extends SequentialCommandGroup {
+    public DalyDroppa2(Swerve m_SwerveSubsystem, IntakeSubsystem m_IntakeSubsystem, ArmSubsystem m_ArmSubsystem,
             PneumaticSubsystem m_PneumaticSubsystem) { 
 
-        double rotP = 1.15;
-        double rotD = 0.03;
+        double rotP = 1.25;
+        double rotD = 0.06;
         double driveP = 1.5;
         double driveD = 0.02;
 
         Pose2d initialPose;
+
         PathPlannerTrajectory trajectory1;
         PathPlannerTrajectory trajectory2;
 
-
         if (DriverStation.getAlliance() == Alliance.Red) {
-            trajectory1 = PathPlanner.loadPath("droppa red bot", new PathConstraints(2, 2));
-            trajectory2 = PathPlanner.loadPath("straight red bot", new PathConstraints(2, 2));
+            trajectory1 = PathPlanner.loadPath("droppa red top", new PathConstraints(2, 2));
+            trajectory2 = PathPlanner.loadPath("straight red top", new PathConstraints(2, 2));
         } else {
-             trajectory1 = PathPlanner.loadPath("droppa blue bot", new PathConstraints(2, 2));
-             trajectory2 = PathPlanner.loadPath("straight blue bot", new PathConstraints(2, 2));
+            trajectory1 = PathPlanner.loadPath("droppa blue top", new PathConstraints(2, 2));
+            trajectory2 = PathPlanner.loadPath("straight blue top", new PathConstraints(2, 2));
         }
 
         initialPose = trajectory1.getInitialPose();
@@ -55,7 +55,7 @@ public class DalyDroppa extends SequentialCommandGroup {
         eventMap.put("grab", new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()));
         eventMap.put("Arm Up", new ArmSet2PtPath(m_ArmSubsystem,
         79, 275, 128.5, 204,
-        10, 9, 50, 7,
+        30, 15, 50, 25,
         .3, .1, 0, .6, .2, 0,
         .25, .1, 0, .25, .1, 0,
         9, 10, 7, 7));

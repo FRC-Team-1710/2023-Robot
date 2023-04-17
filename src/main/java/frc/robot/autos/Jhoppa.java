@@ -2,27 +2,19 @@ package frc.robot.autos;
 
 import frc.robot.Constants;
 import frc.robot.commands.ArmSet2PtPath;
-import frc.robot.commands.IntakeSpin;
 import frc.robot.commands.autoBalance;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
 import frc.robot.subsystems.Swerve;
 
-import java.util.HashMap;
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;

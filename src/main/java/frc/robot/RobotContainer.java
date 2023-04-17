@@ -112,6 +112,7 @@ public class RobotContainer {
                 new Jhoppa(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
         commandChooser.addOption("Sloppy Three (DO NOT USE)", new SloppyThree(m_SwerveSubsystem, m_IntakeSubsystem, m_PneumaticSubsystem, m_VisionSubsystem));
         commandChooser.addOption("Daly Droppa (Bot)", new DalyDroppa(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
+        commandChooser.addOption("Daly Droppa (Top)", new DalyDroppa2(m_SwerveSubsystem, m_IntakeSubsystem, m_ArmSubsystem, m_PneumaticSubsystem));
         SmartDashboard.putData("Auto Selection", commandChooser);
 
         // Configure the button bindings
@@ -140,22 +141,22 @@ public class RobotContainer {
         // DxButton.whileTrue(new autoBalance(m_SwerveSubsystem));
 
         MyButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                83, 277, 179, 115,
-                20, 15, 70, 3,
+                79, 275, 179, 115,
+                10, 9, 50, 4,
                 .35, .1, 0, .9, .7, 0,
                 .35, .1, 0, .35, .4, 0,
                 5, 4, 6, 4.5)); // high
 
         MbButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                83, 277, 128.5, 194,
-                30, 15, 50, 20,
+                79, 275, 128.5, 204,
+                10, 9, 50, 7,
                 .3, .1, 0, .6, .2, 0,
                 .25, .1, 0, .25, .1, 0,
                 9, 10, 7, 7)); // mid
 
         MaButton.onTrue(new ArmSet2PtPath(m_ArmSubsystem,
-                83, 277, 115, 269,
-                30, 15, 20, 7,
+                83, 277, 115, 271,
+                30, 15, 20, 3,
                 .2, .2, 0, .4, .2, 0,
                 .1, .2, 0, .3, .1, 0,
                 7, 5, 4, 3)); // intake

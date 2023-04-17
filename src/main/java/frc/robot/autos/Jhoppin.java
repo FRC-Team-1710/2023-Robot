@@ -19,9 +19,6 @@ import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -81,6 +78,7 @@ public class Jhoppin extends SequentialCommandGroup {
                 .35, .1, 0, .35, .1, 0,
                 5, 5, 2.5, 4.5).raceWith(new WaitCommand(5)),
                 new InstantCommand(() -> m_PneumaticSubsystem.ToggleTwoSolenoids()),
+                new WaitCommand(1),
                 command.deadlineWith(new ArmSet2PtPath(m_ArmSubsystem,
                 83, 277, 115, 268,
                 30, 15, 20, 7,
