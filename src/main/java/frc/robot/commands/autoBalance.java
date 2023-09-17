@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -14,7 +15,8 @@ import frc.robot.subsystems.Swerve;
 
 public class autoBalance extends CommandBase {
     /** Creates a new autoBalance. */
-    public Pigeon2 gyro;
+    //public Pigeon2 gyro;
+    AHRS gyro;
     private final PIDController xPidController;
     private final Swerve m_SwerveSub;
     private Timer timer;
