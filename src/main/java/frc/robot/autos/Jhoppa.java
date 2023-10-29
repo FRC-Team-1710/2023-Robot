@@ -36,7 +36,7 @@ public class Jhoppa extends SequentialCommandGroup {
             trajectory1 = PathPlanner.loadPath("KepychKapper Red", new PathConstraints(2, 2));
             initialPose = new Pose2d(14.74, 4.95, new Rotation2d(0));
         } else {*/
-            trajectory1 = PathPlanner.loadPath("jhoppa", new PathConstraints(1.5, 1.5));
+            trajectory1 = PathPlanner.loadPath("jhoppa", new PathConstraints(2, 2));
             initialPose = trajectory1.getInitialPose();
         //}
 

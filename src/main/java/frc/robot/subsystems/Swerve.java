@@ -27,8 +27,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
-//    public Pigeon2 gyro;
-    public AHRS gyro;
+    public Pigeon2 gyro;
+//    public AHRS gyro;
     private Field2d m_field = new Field2d();
     public boolean odometryDisabled = false;
     ShuffleboardTab drivetrainTab;
@@ -36,12 +36,12 @@ public class Swerve extends SubsystemBase {
     
 
     public Swerve() {
-        //gyro = new Pigeon2(Constants.Swerve.pigeonID);
-        //gyro.configFactoryDefault();
+        gyro = new Pigeon2(Constants.Swerve.pigeonID);
+        gyro.configFactoryDefault();
 
-        gyro = new AHRS(SPI.Port.kMXP);
-        gyro.calibrate();
-        //zeroGyro();
+       // gyro = new AHRS(SPI.Port.kMXP);
+       // gyro.calibrate();
+        zeroGyro();
 
         mSwerveMods = new SwerveModule[] {
                 new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -120,20 +120,20 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro() {
-        //gyro.setYaw(0);
-        //gyro.configMountPosePitch(1.27);
-        gyro.zeroYaw();
+        gyro.setYaw(0);
+        gyro.configMountPosePitch(1.27);
+        //gyro.zeroYaw();
     }
 
     public void setGyro(double angle) {
-        //gyro.setYaw(angle);
-        gyro.zeroYaw();
+        gyro.setYaw(angle);
+        //gyro.zeroYaw();
     }
 
     public Rotation2d getYaw() {
-        /*return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw())
-                : Rotation2d.fromDegrees(gyro.getYaw());*/
-        return Rotation2d.fromDegrees(360 - gyro.getAngle());
+        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw())
+                : Rotation2d.fromDegrees(gyro.getYaw());
+        //return Rotation2d.fromDegrees(360 - gyro.getAngle());
     }
 
     public void resetModulesToAbsolute() {
@@ -151,12 +151,12 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putNumber("gyro pitch", gyro.getPitch());
         SmartDashboard.putBoolean("Debug", FireVariableName);
 
-        /*if (gyro.getLastError().toString() == "OK" && FireVariableName){
+        if (gyro.getLastError().toString() == "OK" && FireVariableName){
             SmartDashboard.putString("Gyro Errors", "OK");
         } else {
             FireVariableName = false;
             SmartDashboard.putString("Gyro Errors", gyro.getLastError().toString());
-        }*/
+        }
 
         for (SwerveModule mod : mSwerveMods) {
             //drivetrainTab.add("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());

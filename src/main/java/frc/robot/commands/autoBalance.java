@@ -15,8 +15,8 @@ import frc.robot.subsystems.Swerve;
 
 public class autoBalance extends CommandBase {
     /** Creates a new autoBalance. */
-    //public Pigeon2 gyro;
-    AHRS gyro;
+    public Pigeon2 gyro;
+    //AHRS gyro;
     private final PIDController xPidController;
     private final Swerve m_SwerveSub;
     private Timer timer;
