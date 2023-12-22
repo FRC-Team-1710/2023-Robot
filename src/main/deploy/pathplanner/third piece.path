@@ -1,0 +1,118 @@
+{
+  "waypoints": [
+    {
+      "anchorPoint": {
+        "x": 1.8,
+        "y": 1.0
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6641035550734038,
+        "y": 1.0
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 3.65,
+        "y": 0.75
+      },
+      "prevControl": {
+        "x": 3.1288073276496084,
+        "y": 0.75
+      },
+      "nextControl": {
+        "x": 4.203201313350278,
+        "y": 0.75
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 5.838677814846772,
+        "y": 2.12
+      },
+      "prevControl": {
+        "x": 5.574544490554509,
+        "y": 0.623244495677127
+      },
+      "nextControl": {
+        "x": 5.855721590961255,
+        "y": 2.216581397982074
+      },
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": 1.5,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 7.662361859096504,
+        "y": 2.14
+      },
+      "prevControl": {
+        "x": 6.662361859096507,
+        "y": 2.14
+      },
+      "nextControl": null,
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    }
+  ],
+  "markers": [
+    {
+      "position": 2.3127272727272903,
+      "names": [
+        "Intake"
+      ]
+    },
+    {
+      "position": 2.9454545454545933,
+      "names": [
+        "Intook"
+      ]
+    },
+    {
+      "position": 1.0036363636363934,
+      "names": [
+        "Blind Man Sees"
+      ]
+    }
+  ]
+}

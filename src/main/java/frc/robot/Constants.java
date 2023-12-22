@@ -1,20 +1,56 @@
 package frc.robot;
 
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
-public final class Constants {
-    public static final double stickDeadband = 0.01;
 
+public final class Constants {
+
+/*vision thingy */
+public static final Transform3d robotToCam =
+new Transform3d(
+        new Translation3d(0, 0.0, 0),
+        new Rotation3d(
+                0, 0,
+                0)); // Cam mounted facing forward, half a meter forward of center, half a meter up
+
+
+
+    public static final double stickDeadband = 0.05;
+
+    /*PNEUMATICS CONSTANTS*/
+    public static final int phPort = 7;
+    public static final int kPneuForwardPort = 8;
+    public static final int kPneuReversePort = 9;
+    public static final int kPneu2ForwardPort = 15;
+    public static final int kPneu2ReversePort = 9;
+
+    /*ARM CONSTANTS*/
+    public static final int humerusMotor1ID = 30;
+    public static final int humerusMotor2ID = 31;
+    public static final int humerusMotor3ID = 32;
+    public static final int humerusMotor4ID = 33;
+    public static final int ulnaMotor1ID = 34;
+    public static final int ulnaMotor2ID = 35;
+
+    public static final int humerusEncoderID = 0;
+    public static final int ulnaEncoderID = 1;
+
+    public static final double humerusLength = 26.5; //FIX
+    public static final double ulnaLength = 41; //FIX
     public static final class Swerve {
-        public static final int pigeonID = 13;
+        public static final int pigeonID = 33;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
         public static final COTSFalconSwerveConstants chosenModule =
@@ -74,9 +110,9 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.14 / 12);
-        public static final double driveKV = (2.28 / 12);
-        public static final double driveKA = (0.22 / 12);
+        public static final double driveKS = (0.09828 / 12);
+        public static final double driveKV = (2.2669 / 12);
+        public static final double driveKA = (0.34608 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
@@ -94,7 +130,7 @@ public final class Constants {
             public static final int driveMotorID = 12;
             public static final int angleMotorID = 10;
             public static final int canCoderID = 11;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(335);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(104);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -104,17 +140,17 @@ public final class Constants {
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 1;
             public static final int canCoderID = 2;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(239);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(240);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         
         /* Back Left Module - Module 2 */
         public static final class Mod2 {
-            public static final int driveMotorID = 9;
-            public static final int angleMotorID = 7;
+            public static final int driveMotorID = 7;
+            public static final int angleMotorID = 9;
             public static final int canCoderID = 8;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(17);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(162);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -124,7 +160,7 @@ public final class Constants {
             public static final int driveMotorID = 6;
             public static final int angleMotorID = 4;
             public static final int canCoderID = 5;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(260);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(259);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -136,8 +172,8 @@ public final class Constants {
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = .5;
-        public static final double kPYController = .5;
+        public static final double kPXController = 2;
+        public static final double kPYController = 2;
         public static final double kPThetaController = .5;
     
         /* Constraint for the motion profilied robot angle controller */
